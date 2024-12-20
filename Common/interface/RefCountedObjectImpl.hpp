@@ -38,6 +38,7 @@
 #include "../../Platforms/Basic/interface/DebugUtilities.hpp"
 #include "SpinLock.hpp"
 #include "Cast.hpp"
+#include "ReleaseCallback.h"
 
 namespace Diligent
 {
@@ -59,11 +60,18 @@ public:
         VERIFY(m_ObjectState.load() == ObjectState::Alive, "Attempting to decrement strong reference counter for an object that is not alive");
         VERIFY(m_ObjectWrapperBuffer[0] != 0 && m_ObjectWrapperBuffer[1] != 0, "Object wrapper is not initialized");
 
+        struct IObject* WrappedObject = nullptr;
+        QueryObject(&WrappedObject);
+        if(WrappedObject)
+            m_NumStrongReferences.fetch_add(-1); // QueryObject increments internally strong refs
+
         // Decrement strong reference counter without acquiring the lock.
         const auto RefCount = m_NumStrongReferences.fetch_add(-1) - 1;
         VERIFY(RefCount >= 0, "Inconsistent call to ReleaseStrongRef()");
         if (RefCount == 0)
         {
+            ExecuteReleaseCallback(WrappedObject, this);
+            
             PreObjectDestroy();
             TryDestroyObject();
         }

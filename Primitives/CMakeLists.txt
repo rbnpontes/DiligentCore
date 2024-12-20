@@ -4,6 +4,7 @@ project(Diligent-Primitives CXX)
 
 set(SOURCE
     src/DebugOutput.cpp
+    src/ReleaseCallback.cpp
     src/test.cpp
 )
 
@@ -13,6 +14,7 @@ set(INTERFACE
     interface/CommonDefinitions.h
     interface/DataBlob.h
     interface/DebugOutput.h
+    interface/ReleaseCallback.h
     interface/DefineGlobalFuncHelperMacros.h
     interface/DefineInterfaceHelperMacros.h
     interface/DefineRefMacro.h
