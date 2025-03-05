@@ -431,7 +431,7 @@ struct HashCombiner<HasherType, SamplerDesc> : HashCombinerBase<HasherType>
             SamDesc.BorderColor[3],
             SamDesc.MinLOD,
             SamDesc.MaxLOD);
-        ASSERT_SIZEOF64(SamDesc, 56, "Did you add new members to SamplerDesc? Please handle them here.");
+        ASSERT_SIZEOF64(SamDesc, SIZE_WITH_PADDING(56, 2), "Did you add new members to SamplerDesc? Please handle them here.");
     }
 };
 
@@ -592,7 +592,7 @@ struct HashCombiner<HasherType, TextureViewDesc> : HashCombinerBase<HasherType>
             ((static_cast<uint32_t>(TexViewDesc.AccessFlags) << 0u) |
              (static_cast<uint32_t>(TexViewDesc.Flags) << 8u)),
             TexViewDesc.Swizzle.AsUint32());
-        ASSERT_SIZEOF64(TexViewDesc, 40, "Did you add new members to TextureViewDesc? Please handle them here.");
+        ASSERT_SIZEOF64(TexViewDesc, SIZE_WITH_PADDING(40, 2), "Did you add new members to TextureViewDesc? Please handle them here.");
     }
 };
 
@@ -634,7 +634,8 @@ struct HashCombiner<HasherType, ShaderResourceVariableDesc> : HashCombinerBase<H
             VarDesc.ShaderStages,
             ((static_cast<uint32_t>(VarDesc.Type) << 0u) |
              (static_cast<uint32_t>(VarDesc.Flags) << 8u)));
-        ASSERT_SIZEOF64(VarDesc, 16, "Did you add new members to ShaderResourceVariableDesc? Please handle them here.");
+        constexpr auto desc_size = SIZE_WITH_PADDING(16, 1);
+        ASSERT_SIZEOF64(VarDesc, desc_size, "Did you add new members to ShaderResourceVariableDesc? Please handle them here.");
     }
 };
 
@@ -649,7 +650,8 @@ struct HashCombiner<HasherType, ImmutableSamplerDesc> : HashCombinerBase<HasherT
     void operator()(const ImmutableSamplerDesc& SamDesc) const
     {
         this->m_Hasher(SamDesc.ShaderStages, SamDesc.SamplerOrTextureName, SamDesc.Desc);
-        ASSERT_SIZEOF64(SamDesc, 16 + sizeof(SamplerDesc), "Did you add new members to ImmutableSamplerDesc? Please handle them here.");
+        constexpr auto desc_size = SIZE_WITH_PADDING(16, 1) + sizeof(SamplerDesc);
+        ASSERT_SIZEOF64(SamDesc, desc_size, "Did you add new members to ImmutableSamplerDesc? Please handle them here.");
     }
 };
 
@@ -776,7 +778,8 @@ struct HashCombiner<HasherType, ShadingRateAttachment> : HashCombinerBase<Hasher
     {
         ASSERT_SIZEOF(SRA.TileSize, 8, "Hash logic below may be incorrect.");
         this->m_Hasher(SRA.Attachment, SRA.TileSize[0], SRA.TileSize[1]);
-        ASSERT_SIZEOF(SRA, 16, "Did you add new members to AttachmentReference? Please handle them here.");
+        constexpr auto attachment_size = SIZE_WITH_PADDING(16, 1);
+        ASSERT_SIZEOF(SRA, attachment_size, "Did you add new members to AttachmentReference? Please handle them here.");
     }
 };
 

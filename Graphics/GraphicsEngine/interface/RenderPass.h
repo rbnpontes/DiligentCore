@@ -219,7 +219,7 @@ struct ShadingRateAttachment
 
     constexpr bool operator == (const ShadingRateAttachment& RHS) const
     {
-        static_assert(sizeof(*this)==16, "Did you add new members? Please handle them here");
+        static_assert(sizeof(*this)==SIZE_WITH_PADDING(16, 1), "Did you add new members? Please handle them here");
         return  Attachment  == RHS.Attachment  &&
                 TileSize[0] == RHS.TileSize[0] &&
                 TileSize[1] == RHS.TileSize[1];
