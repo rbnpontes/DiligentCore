@@ -116,7 +116,9 @@
 
 
 #if DILIGENT_PLATFORM_32
-#    define PADDING_FIELD() Uint32 Padding_##__LINE__;
+#    define _CONCAT_IMPL(x, y) x##y
+#    define _CONCAT(x, y)   _CONCAT_IMPL(x, y)
+#    define PADDING_FIELD() Uint32 _CONCAT(Padding, __LINE__);
 #    define POINTER         PADDING_FIELD()
 #else
 #    define PADDING_FIELD()
