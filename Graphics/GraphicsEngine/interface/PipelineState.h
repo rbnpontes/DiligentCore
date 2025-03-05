@@ -129,7 +129,7 @@ DEFINE_FLAG_ENUM_OPERATORS(SHADER_VARIABLE_FLAGS);
 struct ShaderResourceVariableDesc
 {
     /// Shader variable name
-    const Char*                   Name         DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char*                   Name         DEFAULT_INITIALIZER(nullptr);
 
     /// Shader stages this resources variable applies to. If more than one shader stage is specified,
     /// the variable will be shared between these stages. Shader stages used by different variables
@@ -227,7 +227,7 @@ struct PipelineResourceLayoutDesc
     Uint32                              NumImmutableSamplers DEFAULT_INITIALIZER(0);
 
     /// Array of immutable sampler descriptions
-    const ImmutableSamplerDesc*         ImmutableSamplers    DEFAULT_INITIALIZER(nullptr);
+    POINTER const ImmutableSamplerDesc*         ImmutableSamplers    DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     /// Returns true if two resource layout descriptions are equal, and false otherwise.
@@ -316,6 +316,7 @@ struct GraphicsPipelineDesc
     /// Shading rate flags that specify which type of the shading rate will be used with this pipeline.
     PIPELINE_SHADING_RATE_FLAGS ShadingRateFlags DEFAULT_INITIALIZER(PIPELINE_SHADING_RATE_FLAG_NONE);
 
+    PADDING_FIELD()
     /// Render target formats.
     /// All formats must be TEX_FORMAT_UNKNOWN when pRenderPass is not null.
     TEXTURE_FORMAT RTVFormats[DILIGENT_MAX_RENDER_TARGETS] DEFAULT_INITIALIZER({});
@@ -335,7 +336,7 @@ struct GraphicsPipelineDesc
 
     /// When non-null render pass is specified, NumRenderTargets must be 0,
     /// and all RTV formats as well as DSV format must be TEX_FORMAT_UNKNOWN.
-    IRenderPass* pRenderPass     DEFAULT_INITIALIZER(nullptr);
+    POINTER IRenderPass* pRenderPass     DEFAULT_INITIALIZER(nullptr);
 
     /// Node mask.
     Uint32 NodeMask DEFAULT_INITIALIZER(0);
@@ -388,10 +389,10 @@ typedef struct GraphicsPipelineDesc GraphicsPipelineDesc;
 struct RayTracingGeneralShaderGroup
 {
     /// Unique group name.
-    const Char* Name    DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name    DEFAULT_INITIALIZER(nullptr);
 
     /// Shader type must be SHADER_TYPE_RAY_GEN, SHADER_TYPE_RAY_MISS or SHADER_TYPE_CALLABLE.
-    IShader*    pShader DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader*    pShader DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr RayTracingGeneralShaderGroup() noexcept
@@ -419,15 +420,15 @@ typedef struct RayTracingGeneralShaderGroup RayTracingGeneralShaderGroup;
 struct RayTracingTriangleHitShaderGroup
 {
     /// Unique group name.
-    const Char* Name              DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name              DEFAULT_INITIALIZER(nullptr);
 
     /// Closest hit shader.
     /// The shader type must be SHADER_TYPE_RAY_CLOSEST_HIT.
-    IShader*    pClosestHitShader DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader*    pClosestHitShader DEFAULT_INITIALIZER(nullptr);
 
     /// Any-hit shader. Can be null.
     /// The shader type must be SHADER_TYPE_RAY_ANY_HIT.
-    IShader*    pAnyHitShader     DEFAULT_INITIALIZER(nullptr); // can be null
+    POINTER IShader*    pAnyHitShader     DEFAULT_INITIALIZER(nullptr); // can be null
 
 #if DILIGENT_CPP_INTERFACE
     constexpr RayTracingTriangleHitShaderGroup() noexcept
@@ -459,19 +460,19 @@ typedef struct RayTracingTriangleHitShaderGroup RayTracingTriangleHitShaderGroup
 struct RayTracingProceduralHitShaderGroup
 {
     /// Unique group name.
-    const Char* Name                DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name                DEFAULT_INITIALIZER(nullptr);
 
     /// Intersection shader.
     /// The shader type must be SHADER_TYPE_RAY_INTERSECTION.
-    IShader*    pIntersectionShader DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader*    pIntersectionShader DEFAULT_INITIALIZER(nullptr);
 
     /// Closest hit shader. Can be null.
     /// The shader type must be SHADER_TYPE_RAY_CLOSEST_HIT.
-    IShader*    pClosestHitShader   DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader*    pClosestHitShader   DEFAULT_INITIALIZER(nullptr);
 
     /// Any-hit shader. Can be null.
     /// The shader type must be SHADER_TYPE_RAY_ANY_HIT.
-    IShader*    pAnyHitShader       DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader*    pAnyHitShader       DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr RayTracingProceduralHitShaderGroup() noexcept
@@ -697,10 +698,10 @@ struct PipelineStateCreateInfo
     /// PSO creation. If PSODesc.Name is found in the cache, the cache
     /// data is used to create the PSO. Otherwise, the PSO
     /// is added to the cache.
-    IPipelineStateCache* pPSOCache DEFAULT_INITIALIZER(nullptr);
+    POINTER IPipelineStateCache* pPSOCache DEFAULT_INITIALIZER(nullptr);
 
     /// For internal use only. Must always be null.
-    void* pInternalData DEFAULT_INITIALIZER(nullptr);
+    POINTER void* pInternalData DEFAULT_INITIALIZER(nullptr);
 
 #ifdef DILIGENT_PLATFORM_32
     Uint32 _Padding DEFAULT_INITIALIZER(0);
@@ -760,25 +761,25 @@ struct GraphicsPipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo)
     GraphicsPipelineDesc GraphicsPipeline;
 
     /// Vertex shader to be used with the pipeline.
-    IShader* pVS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pVS DEFAULT_INITIALIZER(nullptr);
 
     /// Pixel shader to be used with the pipeline.
-    IShader* pPS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pPS DEFAULT_INITIALIZER(nullptr);
 
     /// Domain shader to be used with the pipeline.
-    IShader* pDS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pDS DEFAULT_INITIALIZER(nullptr);
 
     /// Hull shader to be used with the pipeline.
-    IShader* pHS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pHS DEFAULT_INITIALIZER(nullptr);
 
     /// Geometry shader to be used with the pipeline.
-    IShader* pGS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pGS DEFAULT_INITIALIZER(nullptr);
 
     /// Amplification shader to be used with the pipeline.
-    IShader* pAS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pAS DEFAULT_INITIALIZER(nullptr);
 
     /// Mesh shader to be used with the pipeline.
-    IShader* pMS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pMS DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr GraphicsPipelineStateCreateInfo() noexcept 
@@ -819,7 +820,7 @@ typedef struct GraphicsPipelineStateCreateInfo GraphicsPipelineStateCreateInfo;
 struct ComputePipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo)
 
     /// Compute shader to be used with the pipeline
-    IShader* pCS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pCS DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     ComputePipelineStateCreateInfo() noexcept
@@ -854,21 +855,21 @@ struct RayTracingPipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo
     RayTracingPipelineDesc                    RayTracingPipeline;
 
     /// A pointer to an array of GeneralShaderCount RayTracingGeneralShaderGroup structures that contain shader group description.
-    const RayTracingGeneralShaderGroup*       pGeneralShaders          DEFAULT_INITIALIZER(nullptr);
+    POINTER const RayTracingGeneralShaderGroup*       pGeneralShaders          DEFAULT_INITIALIZER(nullptr);
 
     /// The number of general shader groups.
     Uint32                                    GeneralShaderCount       DEFAULT_INITIALIZER(0);
 
     /// A pointer to an array of TriangleHitShaderCount RayTracingTriangleHitShaderGroup structures that contain shader group description.
     /// Can be null.
-    const RayTracingTriangleHitShaderGroup*   pTriangleHitShaders      DEFAULT_INITIALIZER(nullptr);
+    POINTER const RayTracingTriangleHitShaderGroup*   pTriangleHitShaders      DEFAULT_INITIALIZER(nullptr);
 
     /// The number of triangle hit shader groups.
     Uint32                                    TriangleHitShaderCount   DEFAULT_INITIALIZER(0);
 
     /// A pointer to an array of ProceduralHitShaderCount RayTracingProceduralHitShaderGroup structures that contain shader group description.
     /// Can be null.
-    const RayTracingProceduralHitShaderGroup* pProceduralHitShaders    DEFAULT_INITIALIZER(nullptr);
+    POINTER const RayTracingProceduralHitShaderGroup* pProceduralHitShaders    DEFAULT_INITIALIZER(nullptr);
 
     /// The number of procedural shader groups.
     Uint32                                    ProceduralHitShaderCount DEFAULT_INITIALIZER(0);
@@ -876,7 +877,7 @@ struct RayTracingPipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo
     /// Direct3D12 only: the name of the constant buffer that will be used by the local root signature.
     /// Ignored if RayTracingPipelineDesc::ShaderRecordSize is zero.
     /// In Vulkan backend in HLSL add [[vk::shader_record_ext]] attribute to the constant buffer, in GLSL add shaderRecord layout to buffer.
-    const Char*                               pShaderRecordName        DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char*                               pShaderRecordName        DEFAULT_INITIALIZER(nullptr);
 
     /// Direct3D12 only: the maximum hit shader attribute size in bytes.
     /// If zero then maximum allowed size will be used.
@@ -949,6 +950,8 @@ struct TilePipelineDesc
     /// The number of samples in render targets.
     Uint8 SampleCount            DEFAULT_INITIALIZER(1);
 
+    PADDING_FIELD()
+
     /// Render target formats.
     TEXTURE_FORMAT RTVFormats[DILIGENT_MAX_RENDER_TARGETS] DEFAULT_INITIALIZER({});
 
@@ -981,7 +984,7 @@ struct TilePipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo)
     TilePipelineDesc TilePipeline;
 
     /// Tile shader to be used with the pipeline.
-    IShader* pTS DEFAULT_INITIALIZER(nullptr);
+    POINTER IShader* pTS DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     TilePipelineStateCreateInfo() noexcept

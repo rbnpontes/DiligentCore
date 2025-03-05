@@ -201,6 +201,7 @@ struct ShadingRateAttachment
     /// Shading rate attachment reference, see Diligent::AttachmentReference.
     AttachmentReference Attachment  DEFAULT_INITIALIZER({});
 
+    PADDING_FIELD()
     /// Each texel in the attachment contains shading rate for the whole tile.
     /// The size must be a power-of-two value between ShadingRateProperties::MinTileSize and ShadingRateProperties::MaxTileSize.
     /// Keep zero to use the default tile size.
@@ -240,7 +241,7 @@ struct SubpassDesc
     Uint32                      InputAttachmentCount        DEFAULT_INITIALIZER(0);
 
     /// Pointer to the array of input attachments, see Diligent::AttachmentReference.
-    const AttachmentReference*  pInputAttachments           DEFAULT_INITIALIZER(nullptr);
+    POINTER const AttachmentReference*  pInputAttachments           DEFAULT_INITIALIZER(nullptr);
 
     /// The number of color render target attachments.
     Uint32                      RenderTargetAttachmentCount DEFAULT_INITIALIZER(0);
@@ -251,7 +252,7 @@ struct SubpassDesc
     /// i.e. if the shader declares an output variable decorated with a render target index X, then it uses
     /// the attachment provided in pRenderTargetAttachments[X]. If the attachment index is ATTACHMENT_UNUSED,
     /// writes to this render target are ignored.
-    const AttachmentReference*  pRenderTargetAttachments    DEFAULT_INITIALIZER(nullptr);
+    POINTER const AttachmentReference*  pRenderTargetAttachments    DEFAULT_INITIALIZER(nullptr);
 
     /// Pointer to the array of resolve attachments, see Diligent::AttachmentReference.
 
@@ -260,19 +261,19 @@ struct SubpassDesc
     /// defined for each attachment. At the end of each subpass, multisample resolve operations read the subpass's
     /// color attachments, and resolve the samples for each pixel within the render area to the same pixel location
     /// in the corresponding resolve attachments, unless the resolve attachment index is ATTACHMENT_UNUSED.
-    const AttachmentReference*  pResolveAttachments         DEFAULT_INITIALIZER(nullptr);
+    POINTER const AttachmentReference*  pResolveAttachments         DEFAULT_INITIALIZER(nullptr);
 
     /// Pointer to the depth-stencil attachment, see Diligent::AttachmentReference.
-    const AttachmentReference*  pDepthStencilAttachment     DEFAULT_INITIALIZER(nullptr);
+    POINTER const AttachmentReference*  pDepthStencilAttachment     DEFAULT_INITIALIZER(nullptr);
 
     /// The number of preserve attachments.
     Uint32                      PreserveAttachmentCount     DEFAULT_INITIALIZER(0);
 
     /// Pointer to the array of preserve attachments, see Diligent::AttachmentReference.
-    const Uint32*               pPreserveAttachments        DEFAULT_INITIALIZER(nullptr);
+    POINTER const Uint32*               pPreserveAttachments        DEFAULT_INITIALIZER(nullptr);
 
     /// Pointer to the shading rate attachment, see Diligent::ShadingRateAttachment.
-    const ShadingRateAttachment* pShadingRateAttachment     DEFAULT_INITIALIZER(nullptr);
+    POINTER const ShadingRateAttachment* pShadingRateAttachment     DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     /// Tests if two structures are equivalent
@@ -414,19 +415,19 @@ struct RenderPassDesc DILIGENT_DERIVE(DeviceObjectAttribs)
     Uint32                           AttachmentCount    DEFAULT_INITIALIZER(0);
 
     /// Pointer to the array of subpass attachments, see Diligent::RenderPassAttachmentDesc.
-    const RenderPassAttachmentDesc*  pAttachments       DEFAULT_INITIALIZER(nullptr);
+    POINTER const RenderPassAttachmentDesc*  pAttachments       DEFAULT_INITIALIZER(nullptr);
 
     /// The number of subpasses in the render pass.
     Uint32                           SubpassCount       DEFAULT_INITIALIZER(0);
 
     /// Pointer to the array of subpass descriptions, see Diligent::SubpassDesc.
-    const SubpassDesc*               pSubpasses         DEFAULT_INITIALIZER(nullptr);
+    POINTER const SubpassDesc*               pSubpasses         DEFAULT_INITIALIZER(nullptr);
 
     /// The number of memory dependencies between pairs of subpasses.
     Uint32                           DependencyCount    DEFAULT_INITIALIZER(0);
 
     /// Pointer to the array of subpass dependencies, see Diligent::SubpassDependencyDesc.
-    const SubpassDependencyDesc*     pDependencies      DEFAULT_INITIALIZER(nullptr);
+    POINTER const SubpassDependencyDesc*     pDependencies      DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     /// Tests if two render pass descriptions are equal.

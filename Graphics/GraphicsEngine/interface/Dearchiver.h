@@ -42,17 +42,17 @@ DILIGENT_BEGIN_NAMESPACE(Diligent)
 /// Shader unpack parameters
 struct ShaderUnpackInfo
 {
-    struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    POINTER struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
 
     /// Name of the shader to unpack.
-    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
 
     /// An optional function to be called by the dearchiver to let the application modify
     /// the shader description.
-    void (*ModifyShaderDesc)(ShaderDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
+    POINTER void (*ModifyShaderDesc)(ShaderDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
 
     /// A pointer to the user data to pass to the ModifyShaderDesc function.
-    void* pUserData DEFAULT_INITIALIZER(nullptr);
+    POINTER void* pUserData DEFAULT_INITIALIZER(nullptr);
 };
 typedef struct ShaderUnpackInfo ShaderUnpackInfo;
 
@@ -60,11 +60,11 @@ typedef struct ShaderUnpackInfo ShaderUnpackInfo;
 /// Resource signature unpack parameters
 struct ResourceSignatureUnpackInfo
 {
-    struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    POINTER struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
 
     /// Name of the signature to unpack. If there is only
     /// one signature in the archive, the name may be null.
-    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
 
     /// Shader resource binding allocation granularity.
 
@@ -180,17 +180,17 @@ typedef struct PipelineStateUnpackInfo PipelineStateUnpackInfo;
 /// Render pass unpack parameters
 struct RenderPassUnpackInfo
 {
-    struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    POINTER struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
 
     /// Name of the render pass to unpack.
-    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
 
     /// An optional function to be called by the dearchiver to let the application modify
     /// the render pass description.
-    void (*ModifyRenderPassDesc)(RenderPassDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
+    POINTER void (*ModifyRenderPassDesc)(RenderPassDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
 
     /// A pointer to the user data to pass to the ModifyRenderPassDesc function.
-    void* pUserData DEFAULT_INITIALIZER(nullptr);
+    POINTER void* pUserData DEFAULT_INITIALIZER(nullptr);
 };
 typedef struct RenderPassUnpackInfo RenderPassUnpackInfo;
 

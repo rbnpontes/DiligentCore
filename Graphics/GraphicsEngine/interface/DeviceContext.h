@@ -71,7 +71,7 @@ struct DeviceContextDesc
 {
     /// Device context name. This name is what was specified in
     /// ImmediateContextCreateInfo::Name when the engine was initialized.
-    const Char*  Name            DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char*  Name            DEFAULT_INITIALIZER(nullptr);
 
     /// Command queue type that this context uses.
 
@@ -388,7 +388,7 @@ struct DrawIndirectAttribs
     ///     Uint32 NumInstances;
     ///     Uint32 StartVertexLocation;
     ///     Uint32 FirstInstanceLocation;
-    IBuffer*   pAttribsBuffer       DEFAULT_VALUE(nullptr);
+    POINTER IBuffer*   pAttribsBuffer       DEFAULT_VALUE(nullptr);
 
     /// Offset from the beginning of the buffer to the location of draw command attributes.
     Uint64 DrawArgsOffset           DEFAULT_INITIALIZER(0);
@@ -410,7 +410,7 @@ struct DrawIndirectAttribs
 
 
     /// A pointer to the optional buffer, from which Uint32 value with the draw count will be read.
-    IBuffer* pCounterBuffer         DEFAULT_VALUE(nullptr);
+    POINTER IBuffer* pCounterBuffer         DEFAULT_VALUE(nullptr);
 
     /// When pCounterBuffer is not null, an offset from the beginning of the buffer to the
     /// location of the command counter.
@@ -466,7 +466,7 @@ struct DrawIndexedIndirectAttribs
     ///     Uint32 FirstIndexLocation;
     ///     Uint32 BaseVertex;
     ///     Uint32 FirstInstanceLocation
-    IBuffer*  pAttribsBuffer        DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*  pAttribsBuffer        DEFAULT_INITIALIZER(nullptr);
 
     /// Offset from the beginning of the buffer to the location of the draw command attributes.
     Uint64 DrawArgsOffset           DEFAULT_INITIALIZER(0);
@@ -488,7 +488,7 @@ struct DrawIndexedIndirectAttribs
 
 
     /// A pointer to the optional buffer, from which Uint32 value with the draw count will be read.
-    IBuffer* pCounterBuffer         DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer* pCounterBuffer         DEFAULT_INITIALIZER(nullptr);
 
     /// When pCounterBuffer is not null, offset from the beginning of the counter buffer to the
     /// location of the command counter.
@@ -593,7 +593,7 @@ struct DrawMeshIndirectAttribs
     ///        Uint32 TaskCount;
     ///        Uint32 FirstTask;
     /// Size of the buffer must be sizeof(Uint32[3]) * Attribs.MaxDrawCommands.
-    IBuffer*   pAttribsBuffer   DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*   pAttribsBuffer   DEFAULT_INITIALIZER(nullptr);
 
     /// Offset from the beginning of the attribs buffer to the location of the draw command attributes.
     Uint64 DrawArgsOffset       DEFAULT_INITIALIZER(0);
@@ -611,7 +611,7 @@ struct DrawMeshIndirectAttribs
 
 
     /// A pointer to the optional buffer, from which Uint32 value with the draw count will be read.
-    IBuffer* pCounterBuffer DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer* pCounterBuffer DEFAULT_INITIALIZER(nullptr);
 
     /// When pCounterBuffer is not null, an offset from the beginning of the buffer to the location of the command counter.
     Uint64 CounterOffset    DEFAULT_INITIALIZER(0);
@@ -665,7 +665,7 @@ struct MultiDrawAttribs
     Uint32               DrawCount   DEFAULT_INITIALIZER(0);
 
     /// A pointer to the array of DrawCount draw command items.
-    const MultiDrawItem* pDrawItems  DEFAULT_INITIALIZER(nullptr);
+    POINTER const MultiDrawItem* pDrawItems  DEFAULT_INITIALIZER(nullptr);
 
     /// Additional flags, see Diligent::DRAW_FLAGS.
     DRAW_FLAGS Flags                 DEFAULT_INITIALIZER(DRAW_FLAG_NONE);
@@ -719,7 +719,7 @@ struct MultiDrawIndexedAttribs
     Uint32                      DrawCount  DEFAULT_INITIALIZER(0);
 
     /// A pointer to the array of DrawCount draw command items.
-    const MultiDrawIndexedItem* pDrawItems DEFAULT_INITIALIZER(nullptr);
+    POINTER const MultiDrawIndexedItem* pDrawItems DEFAULT_INITIALIZER(nullptr);
 
     /// The type of elements in the index buffer.
     /// Allowed values: VT_UINT16 and VT_UINT32.
@@ -827,7 +827,7 @@ struct DispatchComputeIndirectAttribs
     ///    Uint32 ThreadGroupCountX;
     ///    Uint32 ThreadGroupCountY;
     ///    Uint32 ThreadGroupCountZ;
-    IBuffer*                       pAttribsBuffer                   DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                       pAttribsBuffer                   DEFAULT_INITIALIZER(nullptr);
 
     /// State transition mode for indirect dispatch attributes buffer.
     RESOURCE_STATE_TRANSITION_MODE AttribsBufferStateTransitionMode DEFAULT_INITIALIZER(RESOURCE_STATE_TRANSITION_MODE_NONE);
@@ -1071,7 +1071,7 @@ typedef struct Rect Rect;
 struct CopyTextureAttribs
 {
     /// Source texture to copy data from.
-    ITexture*                      pSrcTexture              DEFAULT_INITIALIZER(nullptr);
+    POINTER ITexture*                      pSrcTexture              DEFAULT_INITIALIZER(nullptr);
 
     /// Mip level of the source texture to copy data from.
     Uint32                         SrcMipLevel              DEFAULT_INITIALIZER(0);
@@ -1080,13 +1080,13 @@ struct CopyTextureAttribs
     Uint32                         SrcSlice                 DEFAULT_INITIALIZER(0);
 
     /// Source region to copy. Use nullptr to copy the entire subresource.
-    const Box*                     pSrcBox                  DEFAULT_INITIALIZER(nullptr);
+    POINTER const Box*                     pSrcBox                  DEFAULT_INITIALIZER(nullptr);
 
     /// Source texture state transition mode (see Diligent::RESOURCE_STATE_TRANSITION_MODE).
     RESOURCE_STATE_TRANSITION_MODE SrcTextureTransitionMode DEFAULT_INITIALIZER(RESOURCE_STATE_TRANSITION_MODE_NONE);
 
     /// Destination texture.
-    ITexture*                      pDstTexture              DEFAULT_INITIALIZER(nullptr);
+    POINTER ITexture*                      pDstTexture              DEFAULT_INITIALIZER(nullptr);
 
     /// Destination mip level.
     Uint32                         DstMipLevel              DEFAULT_INITIALIZER(0);
@@ -1135,15 +1135,15 @@ struct SetRenderTargetsAttribs
     /// Array of pointers to ITextureView that represent the render
     /// targets to bind to the device. The type of each view in the
     /// array must be Diligent::TEXTURE_VIEW_RENDER_TARGET.
-    ITextureView**                 ppRenderTargets      DEFAULT_INITIALIZER(nullptr);
+    POINTER ITextureView**                 ppRenderTargets      DEFAULT_INITIALIZER(nullptr);
 
     /// Pointer to the ITextureView that represents the depth stencil to
     /// bind to the device. The view type must be
     /// Diligent::TEXTURE_VIEW_DEPTH_STENCIL or Diligent::TEXTURE_VIEW_READ_ONLY_DEPTH_STENCIL.
-    ITextureView*                  pDepthStencil        DEFAULT_INITIALIZER(nullptr);
+    POINTER ITextureView*                  pDepthStencil        DEFAULT_INITIALIZER(nullptr);
 
     /// Shading rate texture view. Set null to disable variable rate shading.
-    ITextureView*                  pShadingRateMap      DEFAULT_INITIALIZER(nullptr);
+    POINTER ITextureView*                  pShadingRateMap      DEFAULT_INITIALIZER(nullptr);
 
     /// State transition mode of the render targets, depth stencil buffer
     /// and shading rate map being set (see Diligent::RESOURCE_STATE_TRANSITION_MODE).
@@ -1174,10 +1174,10 @@ typedef struct SetRenderTargetsAttribs SetRenderTargetsAttribs;
 struct BeginRenderPassAttribs
 {
     /// Render pass to begin.
-    IRenderPass*    pRenderPass     DEFAULT_INITIALIZER(nullptr);
+    POINTER IRenderPass*    pRenderPass     DEFAULT_INITIALIZER(nullptr);
 
     /// Framebuffer containing the attachments that are used with the render pass.
-    IFramebuffer*   pFramebuffer    DEFAULT_INITIALIZER(nullptr);
+    POINTER IFramebuffer*   pFramebuffer    DEFAULT_INITIALIZER(nullptr);
 
     /// The number of elements in pClearValues array.
     Uint32 ClearValueCount          DEFAULT_INITIALIZER(0);
@@ -1187,7 +1187,7 @@ struct BeginRenderPassAttribs
     /// or if the attachment has a depth/stencil format and uses a StencilLoadOp value of ATTACHMENT_LOAD_OP_CLEAR.
     /// The array is indexed by attachment number. Only elements corresponding to cleared attachments are used.
     /// Other elements of pClearValues are ignored.
-    OptimizedClearValue* pClearValues   DEFAULT_INITIALIZER(nullptr);
+    POINTER OptimizedClearValue* pClearValues   DEFAULT_INITIALIZER(nullptr);
 
     /// Framebuffer attachments state transition mode before the render pass begins.
 
@@ -1273,12 +1273,12 @@ struct BLASBuildTriangleData
 {
     /// Geometry name used to map a geometry to a hit group in the shader binding table.
     /// Add geometry data to the geometry that is allocated by BLASTriangleDesc with the same name.
-    const Char* GeometryName          DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* GeometryName          DEFAULT_INITIALIZER(nullptr);
 
     /// Triangle vertices data source.
     /// Triangles are considered "inactive" if the x component of each vertex is NaN.
     /// The buffer must be created with BIND_RAY_TRACING flag.
-    IBuffer*    pVertexBuffer         DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*    pVertexBuffer         DEFAULT_INITIALIZER(nullptr);
 
     /// Data offset, in bytes, in pVertexBuffer.
     /// D3D12 and Vulkan: offset must be a multiple of the VertexValueType size.
@@ -1310,7 +1310,7 @@ struct BLASBuildTriangleData
     /// Triangle indices data source.
     /// Must be null if BLASTriangleDesc::IndexType is undefined.
     /// The buffer must be created with BIND_RAY_TRACING flag.
-    IBuffer*    pIndexBuffer          DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*    pIndexBuffer          DEFAULT_INITIALIZER(nullptr);
 
     /// Data offset in bytes in pIndexBuffer.
     /// Offset must be aligned by RayTracingProperties::IndexBufferAlignment
@@ -1324,7 +1324,7 @@ struct BLASBuildTriangleData
     /// Geometry transformation data source, must contain a float4x3 matrix aka Diligent::InstanceMatrix.
     /// The buffer must be created with BIND_RAY_TRACING flag.
     /// \note Transform buffer is not supported in Metal backend.
-    IBuffer*    pTransformBuffer      DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*    pTransformBuffer      DEFAULT_INITIALIZER(nullptr);
 
     /// Data offset in bytes in pTransformBuffer.
     /// Offset must be aligned by RayTracingProperties::TransformBufferAlignment.
@@ -1341,13 +1341,13 @@ struct BLASBuildBoundingBoxData
 {
     /// Geometry name used to map geometry to hit group in shader binding table.
     /// Put geometry data to geometry that allocated by BLASBoundingBoxDesc with the same name.
-    const Char* GeometryName DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* GeometryName DEFAULT_INITIALIZER(nullptr);
 
     /// AABB data source.
     /// Each AABB defined as { float3 Min; float3 Max } structure.
     /// AABB are considered inactive if AABB.Min.x is NaN.
     /// Buffer must be created with BIND_RAY_TRACING flag.
-    IBuffer*    pBoxBuffer   DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*    pBoxBuffer   DEFAULT_INITIALIZER(nullptr);
 
     /// Data offset in bytes in pBoxBuffer.
     /// D3D12 and Vulkan: offset must be aligned by RayTracingProperties::BoxBufferAlignment.
@@ -1374,7 +1374,7 @@ struct BuildBLASAttribs
 {
     /// Target bottom-level AS.
     /// Access to the BLAS must be externally synchronized.
-    IBottomLevelAS*                 pBLAS                       DEFAULT_INITIALIZER(nullptr);
+    POINTER IBottomLevelAS*                 pBLAS                       DEFAULT_INITIALIZER(nullptr);
 
     /// Bottom-level AS state transition mode (see Diligent::RESOURCE_STATE_TRANSITION_MODE).
     RESOURCE_STATE_TRANSITION_MODE  BLASTransitionMode          DEFAULT_INITIALIZER(RESOURCE_STATE_TRANSITION_MODE_NONE);
@@ -1387,7 +1387,7 @@ struct BuildBLASAttribs
     ///     - Only vertex positions (in pVertexBuffer) and transformation (in pTransformBuffer) can be changed.
     ///     - All other content in BLASBuildTriangleData and buffers must be the same as what was used to build BLAS.
     ///     - To disable geometry, make all triangles inactive, see BLASBuildTriangleData::pVertexBuffer description.
-    BLASBuildTriangleData const*    pTriangleData               DEFAULT_INITIALIZER(nullptr);
+    POINTER BLASBuildTriangleData const*    pTriangleData               DEFAULT_INITIALIZER(nullptr);
 
     /// The number of triangle geometries.
     /// Must be less than or equal to BottomLevelASDesc::TriangleCount.
@@ -1399,7 +1399,7 @@ struct BuildBLASAttribs
     ///     - AABB coordinates (in pBoxBuffer) can be changed.
     ///     - All other content in BLASBuildBoundingBoxData must be same as used to build BLAS.
     ///     - To disable geometry make all AAABBs inactive, see BLASBuildBoundingBoxData::pBoxBuffer description.
-    BLASBuildBoundingBoxData const* pBoxData                    DEFAULT_INITIALIZER(nullptr);
+    POINTER BLASBuildBoundingBoxData const* pBoxData                    DEFAULT_INITIALIZER(nullptr);
 
     /// The number of AABB geometries.
     /// Must be less than or equal to BottomLevelASDesc::BoxCount.
@@ -1409,7 +1409,7 @@ struct BuildBLASAttribs
     /// The buffer that is used for acceleration structure building.
     /// Must be created with BIND_RAY_TRACING.
     /// Call IBottomLevelAS::GetScratchBufferSizes().Build to get the minimal size for the scratch buffer.
-    IBuffer*                        pScratchBuffer              DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                        pScratchBuffer              DEFAULT_INITIALIZER(nullptr);
 
     /// Offset from the beginning of the buffer.
     /// Offset must be aligned by RayTracingProperties::ScratchBufferAlignment.
@@ -1494,12 +1494,12 @@ typedef struct InstanceMatrix InstanceMatrix;
 struct TLASBuildInstanceData
 {
     /// Instance name that is used to map an instance to a hit group in shader binding table.
-    const Char*               InstanceName    DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char*               InstanceName    DEFAULT_INITIALIZER(nullptr);
 
     /// Bottom-level AS that represents instance geometry.
     /// Once built, TLAS will hold strong reference to pBLAS until next build or copy operation.
     /// Access to the BLAS must be externally synchronized.
-    IBottomLevelAS*           pBLAS           DEFAULT_INITIALIZER(nullptr);
+    POINTER IBottomLevelAS*           pBLAS           DEFAULT_INITIALIZER(nullptr);
 
     /// Instance to world transformation.
     InstanceMatrix            Transform;
@@ -1541,7 +1541,7 @@ struct BuildTLASAttribs
 {
     /// Target top-level AS.
     /// Access to the TLAS must be externally synchronized.
-    ITopLevelAS*                    pTLAS                         DEFAULT_INITIALIZER(nullptr);
+    POINTER ITopLevelAS*                    pTLAS                         DEFAULT_INITIALIZER(nullptr);
 
     /// Top-level AS state transition mode (see Diligent::RESOURCE_STATE_TRANSITION_MODE).
     RESOURCE_STATE_TRANSITION_MODE  TLASTransitionMode            DEFAULT_INITIALIZER(RESOURCE_STATE_TRANSITION_MODE_NONE);
@@ -1553,7 +1553,7 @@ struct BuildTLASAttribs
     /// If Update is true:
     ///     - Any instance data can be changed.
     ///     - To disable an instance set TLASBuildInstanceData::Mask to zero or set empty TLASBuildInstanceData::BLAS to pBLAS.
-    TLASBuildInstanceData const*    pInstances                    DEFAULT_INITIALIZER(nullptr);
+    POINTER TLASBuildInstanceData const*    pInstances                    DEFAULT_INITIALIZER(nullptr);
 
     /// The number of instances.
     /// Must be less than or equal to TopLevelASDesc::MaxInstanceCount.
@@ -1563,7 +1563,7 @@ struct BuildTLASAttribs
     /// The buffer that will be used to store instance data during AS building.
     /// The buffer size must be at least TLAS_INSTANCE_DATA_SIZE * InstanceCount.
     /// The buffer must be created with BIND_RAY_TRACING flag.
-    IBuffer*                        pInstanceBuffer               DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                        pInstanceBuffer               DEFAULT_INITIALIZER(nullptr);
 
     /// Offset from the beginning of the buffer to the location of instance data.
     /// Offset must be aligned by RayTracingProperties::InstanceBufferAlignment.
@@ -1593,7 +1593,7 @@ struct BuildTLASAttribs
     /// Must be created with BIND_RAY_TRACING.
     /// Call ITopLevelAS::GetScratchBufferSizes().Build to get the minimal size for the scratch buffer.
     /// Access to the TLAS must be externally synchronized.
-    IBuffer*                        pScratchBuffer                DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                        pScratchBuffer                DEFAULT_INITIALIZER(nullptr);
 
     /// Offset from the beginning of the buffer.
     /// Offset must be aligned by RayTracingProperties::ScratchBufferAlignment.
@@ -1616,13 +1616,13 @@ struct CopyBLASAttribs
 {
     /// Source bottom-level AS.
     /// Access to the BLAS must be externally synchronized.
-    IBottomLevelAS*                pSrc              DEFAULT_INITIALIZER(nullptr);
+    POINTER IBottomLevelAS*                pSrc              DEFAULT_INITIALIZER(nullptr);
 
     /// Destination bottom-level AS.
     /// If Mode is COPY_AS_MODE_COMPACT then pDst must be created with CompactedSize
     /// that is greater or equal to the size returned by IDeviceContext::WriteBLASCompactedSize.
     /// Access to the BLAS must be externally synchronized.
-    IBottomLevelAS*                pDst              DEFAULT_INITIALIZER(nullptr);
+    POINTER IBottomLevelAS*                pDst              DEFAULT_INITIALIZER(nullptr);
 
     /// Acceleration structure copy mode, see Diligent::COPY_AS_MODE.
     COPY_AS_MODE                   Mode              DEFAULT_INITIALIZER(COPY_AS_MODE_CLONE);
@@ -1658,13 +1658,13 @@ struct CopyTLASAttribs
 {
     /// Source top-level AS.
     /// Access to the TLAS must be externally synchronized.
-    ITopLevelAS*                   pSrc              DEFAULT_INITIALIZER(nullptr);
+    POINTER ITopLevelAS*                   pSrc              DEFAULT_INITIALIZER(nullptr);
 
     /// Destination top-level AS.
     /// If Mode is COPY_AS_MODE_COMPACT then pDst must be created with CompactedSize
     /// that is greater or equal to size that returned by IDeviceContext::WriteTLASCompactedSize.
     /// Access to the TLAS must be externally synchronized.
-    ITopLevelAS*                   pDst              DEFAULT_INITIALIZER(nullptr);
+    POINTER ITopLevelAS*                   pDst              DEFAULT_INITIALIZER(nullptr);
 
     /// Acceleration structure copy mode, see Diligent::COPY_AS_MODE.
     COPY_AS_MODE                   Mode              DEFAULT_INITIALIZER(COPY_AS_MODE_CLONE);
@@ -1699,11 +1699,11 @@ typedef struct CopyTLASAttribs CopyTLASAttribs;
 struct WriteBLASCompactedSizeAttribs
 {
     /// Bottom-level AS.
-    IBottomLevelAS*                pBLAS                DEFAULT_INITIALIZER(nullptr);
+    POINTER IBottomLevelAS*                pBLAS                DEFAULT_INITIALIZER(nullptr);
 
     /// The destination buffer into which a 64-bit value representing the acceleration structure compacted size will be written to.
     /// \remarks  Metal backend writes a 32-bit value.
-    IBuffer*                       pDestBuffer          DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                       pDestBuffer          DEFAULT_INITIALIZER(nullptr);
 
     /// Offset from the beginning of the buffer to the location of the AS compacted size.
     Uint64                         DestBufferOffset     DEFAULT_INITIALIZER(0);
@@ -1737,11 +1737,11 @@ typedef struct WriteBLASCompactedSizeAttribs WriteBLASCompactedSizeAttribs;
 struct WriteTLASCompactedSizeAttribs
 {
     /// Top-level AS.
-    ITopLevelAS*                   pTLAS                DEFAULT_INITIALIZER(nullptr);
+    POINTER ITopLevelAS*                   pTLAS                DEFAULT_INITIALIZER(nullptr);
 
     /// The destination buffer into which a 64-bit value representing the acceleration structure compacted size will be written to.
     /// \remarks  Metal backend writes a 32-bit value.
-    IBuffer*                       pDestBuffer          DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                       pDestBuffer          DEFAULT_INITIALIZER(nullptr);
 
     /// Offset from the beginning of the buffer to the location of the AS compacted size.
     Uint64                         DestBufferOffset     DEFAULT_INITIALIZER(0);
@@ -1775,7 +1775,7 @@ typedef struct WriteTLASCompactedSizeAttribs WriteTLASCompactedSizeAttribs;
 struct TraceRaysAttribs
 {
     /// Shader binding table.
-    const IShaderBindingTable* pSBT  DEFAULT_INITIALIZER(nullptr);
+    POINTER const IShaderBindingTable* pSBT  DEFAULT_INITIALIZER(nullptr);
 
     Uint32               DimensionX  DEFAULT_INITIALIZER(1); ///< The number of rays dispatched in X direction.
     Uint32               DimensionY  DEFAULT_INITIALIZER(1); ///< The number of rays dispatched in Y direction.
@@ -1802,7 +1802,7 @@ typedef struct TraceRaysAttribs TraceRaysAttribs;
 struct TraceRaysIndirectAttribs
 {
     /// Shader binding table.
-    const IShaderBindingTable* pSBT  DEFAULT_INITIALIZER(nullptr);
+    POINTER const IShaderBindingTable* pSBT  DEFAULT_INITIALIZER(nullptr);
 
     /// A pointer to the buffer containing indirect trace rays attributes.
     /// The buffer must contain the following arguments at the specified offset:
@@ -1813,7 +1813,7 @@ struct TraceRaysIndirectAttribs
     ///
     /// \remarks  Use IDeviceContext::UpdateSBT() to initialize the first 88 bytes with the
     ///           same shader binding table as specified in TraceRaysIndirectAttribs::pSBT.
-    IBuffer*                       pAttribsBuffer                   DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                       pAttribsBuffer                   DEFAULT_INITIALIZER(nullptr);
 
     /// State transition mode for indirect trace rays attributes buffer.
     RESOURCE_STATE_TRANSITION_MODE AttribsBufferStateTransitionMode DEFAULT_INITIALIZER(RESOURCE_STATE_TRANSITION_MODE_NONE);
@@ -1843,7 +1843,7 @@ typedef struct TraceRaysIndirectAttribs TraceRaysIndirectAttribs;
 struct UpdateIndirectRTBufferAttribs
 {
     /// Indirect buffer that can be used by IDeviceContext::TraceRaysIndirect() command.
-    IBuffer* pAttribsBuffer DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer* pAttribsBuffer DEFAULT_INITIALIZER(nullptr);
 
     /// Offset in bytes from the beginning of the buffer where SBT data will be recorded.
     Uint64 AttribsBufferOffset DEFAULT_INITIALIZER(0);
@@ -1894,7 +1894,7 @@ struct SparseBufferMemoryBindRange
     ///
     /// \note  Memory object can be created by the engine using IRenderDevice::CreateDeviceMemory() or can be implemented by the user.
     ///        Memory object must implement interface methods for each backend (IDeviceMemoryD3D11, IDeviceMemoryD3D12, IDeviceMemoryVk).
-    IDeviceMemory*   pMemory       DEFAULT_INITIALIZER(nullptr);
+    POINTER IDeviceMemory*   pMemory       DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr SparseBufferMemoryBindRange() noexcept {}
@@ -1917,11 +1917,11 @@ typedef struct SparseBufferMemoryBindRange SparseBufferMemoryBindRange;
 struct SparseBufferMemoryBindInfo
 {
     /// Buffer for which sparse binding command will be executed.
-    IBuffer*                           pBuffer    DEFAULT_INITIALIZER(nullptr);
+    POINTER IBuffer*                           pBuffer    DEFAULT_INITIALIZER(nullptr);
 
     /// An array of NumRanges buffer memory ranges to bind/unbind,
     /// see Diligent::SparseBufferMemoryBindRange.
-    const SparseBufferMemoryBindRange* pRanges    DEFAULT_INITIALIZER(nullptr);
+    POINTER const SparseBufferMemoryBindRange* pRanges    DEFAULT_INITIALIZER(nullptr);
 
     /// The number of elements in pRanges array.
     Uint32                             NumRanges  DEFAULT_INITIALIZER(0);
@@ -1979,7 +1979,7 @@ struct SparseTextureMemoryBindRange
     ///
     /// \note  Memory object can be created by the engine using IRenderDevice::CreateDeviceMemory() or can be implemented by the user.
     ///        Memory object must implement interface methods for each backend (IDeviceMemoryD3D11, IDeviceMemoryD3D12, IDeviceMemoryVk).
-    IDeviceMemory*   pMemory       DEFAULT_INITIALIZER(nullptr);
+    POINTER IDeviceMemory*   pMemory       DEFAULT_INITIALIZER(nullptr);
 };
 typedef struct SparseTextureMemoryBindRange SparseTextureMemoryBindRange;
 
@@ -1988,7 +1988,7 @@ typedef struct SparseTextureMemoryBindRange SparseTextureMemoryBindRange;
 struct SparseTextureMemoryBindInfo
 {
     /// Texture for which sparse binding command will be executed.
-    ITexture*                           pTexture   DEFAULT_INITIALIZER(nullptr);
+    POINTER ITexture*                           pTexture   DEFAULT_INITIALIZER(nullptr);
 
     /// An array of NumRanges texture memory ranges to bind/unbind, see Diligent::SparseTextureMemoryBindRange.
     const SparseTextureMemoryBindRange* pRanges    DEFAULT_INITIALIZER(nullptr);
@@ -2004,7 +2004,7 @@ struct BindSparseResourceMemoryAttribs
     /// An array of NumBufferBinds sparse buffer bind commands.
     /// All commands must bind/unbind unique range in the buffer.
     /// Not supported in Metal.
-    const SparseBufferMemoryBindInfo*  pBufferBinds   DEFAULT_INITIALIZER(nullptr);
+    POINTER const SparseBufferMemoryBindInfo*  pBufferBinds   DEFAULT_INITIALIZER(nullptr);
 
     /// The number of elements in the pBufferBinds array.
     Uint32                             NumBufferBinds DEFAULT_INITIALIZER(0);
@@ -2020,7 +2020,7 @@ struct BindSparseResourceMemoryAttribs
 
     /// \remarks The context will wait until all fences have reached the values
     ///          specified in pWaitFenceValues.
-    IFence**      ppWaitFences       DEFAULT_INITIALIZER(nullptr);
+    POINTER IFence**      ppWaitFences       DEFAULT_INITIALIZER(nullptr);
 
     /// An array of NumWaitFences values that the context should wait for the
     /// fences to reach.
@@ -2030,7 +2030,7 @@ struct BindSparseResourceMemoryAttribs
     Uint32        NumWaitFences      DEFAULT_INITIALIZER(0);
 
     /// An array of NumSignalFences fences to signal.
-    IFence**      ppSignalFences     DEFAULT_INITIALIZER(nullptr);
+    POINTER IFence**      ppSignalFences     DEFAULT_INITIALIZER(nullptr);
 
     /// An array of NumSignalFences values to set the fences to.
     const Uint64* pSignalFenceValues DEFAULT_INITIALIZER(nullptr);
@@ -2086,7 +2086,7 @@ struct StateTransitionDesc
     ///
     /// \note pResourceBefore may be null, which indicates that any sparse or
     ///       normal resource could cause aliasing.
-    IDeviceObject* pResourceBefore DEFAULT_INITIALIZER(nullptr);
+    POINTER IDeviceObject* pResourceBefore DEFAULT_INITIALIZER(nullptr);
 
     /// Resource to transition.
     /// Can be ITexture, IBuffer, IBottomLevelAS, ITopLevelAS.
@@ -2094,7 +2094,7 @@ struct StateTransitionDesc
     /// \note For aliasing transition (STATE_TRANSITION_FLAG_ALIASING flag is set),
     ///       pResource may be null, which indicates that any sparse or
     ///       normal resource could cause aliasing.
-    IDeviceObject* pResource       DEFAULT_INITIALIZER(nullptr);
+    POINTER IDeviceObject* pResource       DEFAULT_INITIALIZER(nullptr);
 
     /// When transitioning a texture, first mip level of the subresource range to transition.
     Uint32 FirstMipLevel     DEFAULT_INITIALIZER(0);

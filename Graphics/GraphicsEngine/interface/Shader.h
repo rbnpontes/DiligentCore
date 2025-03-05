@@ -148,7 +148,7 @@ struct ShaderDesc DILIGENT_DERIVE(DeviceObjectAttribs)
     /// If UseCombinedTextureSamplers is false, this member is ignored.
     ///
     /// This member has no effect if the shader is used in the PSO that uses pipeline resource signature(s).
-    const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
+    POINTER const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
 
 #if DILIGENT_CPP_INTERFACE
     constexpr ShaderDesc() noexcept {}
@@ -252,10 +252,10 @@ DILIGENT_END_INTERFACE
 struct ShaderMacro
 {
     /// Macro name
-    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
 
     /// Macro definition
-    const Char* Definition DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Definition DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr ShaderMacro() noexcept
@@ -285,7 +285,7 @@ typedef struct ShaderMacro ShaderMacro;
 struct ShaderMacroArray
 {
     /// A pointer to the array elements
-    const ShaderMacro* Elements DEFAULT_INITIALIZER(nullptr);
+    POINTER const ShaderMacro* Elements DEFAULT_INITIALIZER(nullptr);
 
     /// The number of elements in the array
     Uint32 Count DEFAULT_INITIALIZER(0);
@@ -382,18 +382,18 @@ struct ShaderCreateInfo
     /// Source file path
 
     /// If source file path is provided, Source and ByteCode members must be null
-    const Char* FilePath DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* FilePath DEFAULT_INITIALIZER(nullptr);
 
     /// Pointer to the shader source input stream factory.
 
     /// The factory is used to load the shader source file if FilePath is not null.
     /// It is also used to create additional input streams for shader include files
-    IShaderSourceInputStreamFactory* pShaderSourceStreamFactory DEFAULT_INITIALIZER(nullptr);
+    POINTER IShaderSourceInputStreamFactory* pShaderSourceStreamFactory DEFAULT_INITIALIZER(nullptr);
 
     /// Shader source
 
     /// If shader source is provided, FilePath and ByteCode members must be null
-    const Char* Source DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Source DEFAULT_INITIALIZER(nullptr);
 
     /// Compiled shader bytecode.
 
@@ -408,7 +408,7 @@ struct ShaderCreateInfo
     ///        must contain reflection information. If shaders were compiled
     ///        using fxc, make sure that /Qstrip_reflect option is *not* specified.
     ///        HLSL shaders need to be compiled against 4.0 profile or higher.
-    const void* ByteCode DEFAULT_INITIALIZER(nullptr);
+    POINTER const void* ByteCode DEFAULT_INITIALIZER(nullptr);
 
 #if defined(DILIGENT_SHARP_GEN)
     size_t ByteCodeSize DEFAULT_INITIALIZER(0);
@@ -434,7 +434,7 @@ struct ShaderCreateInfo
     /// Shader entry point
 
     /// This member is ignored if ByteCode is not null
-    const Char* EntryPoint DEFAULT_INITIALIZER("main");
+    POINTER const Char* EntryPoint DEFAULT_INITIALIZER("main");
 
     /// Shader macros (see Diligent::ShaderMacroArray)
     ShaderMacroArray Macros;
@@ -482,7 +482,7 @@ struct ShaderCreateInfo
     bool LoadConstantBufferReflection DEFAULT_INITIALIZER(false);
 
     /// An optional list of GLSL extensions to enable when compiling GLSL source code.
-    const char* GLSLExtensions DEFAULT_INITIALIZER(nullptr);
+    POINTER const char* GLSLExtensions DEFAULT_INITIALIZER(nullptr);
 
     /// An optional suffix to append to the name of emulated array variables to get
     /// the indexed array element name.
@@ -497,7 +497,7 @@ struct ShaderCreateInfo
     ///             When suffix is null or empty, no array emulation is performed.
     ///
     /// \remarks    This member is ignored when compiling shaders for backends other than WebGPU.
-    const char* WebGPUEmulatedArrayIndexSuffix DEFAULT_INITIALIZER(nullptr);
+    POINTER const char* WebGPUEmulatedArrayIndexSuffix DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE && !defined(DILIGENT_SHARP_GEN)
     constexpr ShaderCreateInfo() noexcept

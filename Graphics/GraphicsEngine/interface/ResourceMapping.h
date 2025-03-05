@@ -44,10 +44,10 @@ struct ResourceMappingEntry
     // clang-format off
 
     /// Object name
-    const Char* Name        DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name        DEFAULT_INITIALIZER(nullptr);
 
     /// Pointer to the object's interface
-    IDeviceObject* pObject  DEFAULT_INITIALIZER(nullptr);
+    POINTER IDeviceObject* pObject  DEFAULT_INITIALIZER(nullptr);
 
     Uint32 ArrayIndex       DEFAULT_INITIALIZER(0);
 
@@ -75,7 +75,7 @@ typedef struct ResourceMappingEntry ResourceMappingEntry;
 struct ResourceMappingCreateInfo
 {
     /// A pointer to the array of resource mapping entries.
-    const ResourceMappingEntry* pEntries DEFAULT_INITIALIZER(nullptr);
+    POINTER const ResourceMappingEntry* pEntries DEFAULT_INITIALIZER(nullptr);
 
     /// The number of entries in pEntries array.
     Uint32 NumEntries DEFAULT_INITIALIZER(0);

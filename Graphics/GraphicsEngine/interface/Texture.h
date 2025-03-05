@@ -266,11 +266,11 @@ struct TextureSubResData
 {
     /// Pointer to the subresource data in CPU memory.
     /// If provided, pSrcBuffer must be null
-    const void* pData           DEFAULT_INITIALIZER(nullptr);
+    POINTER const void* pData           DEFAULT_INITIALIZER(nullptr);
 
     /// Pointer to the GPU buffer that contains subresource data.
     /// If provided, pData must be null
-    struct IBuffer* pSrcBuffer   DEFAULT_INITIALIZER(nullptr);
+    POINTER struct IBuffer* pSrcBuffer   DEFAULT_INITIALIZER(nullptr);
 
     /// When updating data from the buffer (pSrcBuffer is not null),
     /// offset from the beginning of the buffer to the data start
@@ -322,7 +322,7 @@ struct TextureData
 {
     /// Pointer to the array of the TextureSubResData elements containing
     /// information about each subresource.
-    TextureSubResData* pSubResources    DEFAULT_INITIALIZER(nullptr);
+    POINTER TextureSubResData* pSubResources    DEFAULT_INITIALIZER(nullptr);
 
     /// Number of elements in pSubResources array.
     /// NumSubresources must exactly match the number
@@ -337,7 +337,7 @@ struct TextureData
     /// must synchronize the access to the texture using fence.
     /// When null is provided, the first context enabled by ImmediateContextMask
     /// will be used.
-    struct IDeviceContext* pContext     DEFAULT_INITIALIZER(nullptr);
+    POINTER struct IDeviceContext* pContext     DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr TextureData() noexcept {}
@@ -395,6 +395,7 @@ struct SparseTextureProperties
     /// or multiple memory blocks.
     Uint32 FirstMipInTail   DEFAULT_INITIALIZER(~0u);
 
+    PADDING_FIELD()
     /// Specifies the dimension of a tile packed into a single memory block.
     Uint32 TileSize[3]      DEFAULT_INITIALIZER({});
 

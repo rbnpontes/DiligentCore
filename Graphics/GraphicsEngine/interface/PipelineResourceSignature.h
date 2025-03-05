@@ -55,7 +55,7 @@ struct ImmutableSamplerDesc
 
     /// The name of the sampler itself or the name of the texture variable that
     /// this immutable sampler is assigned to if combined texture samplers are used.
-    const Char* SamplerOrTextureName DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* SamplerOrTextureName DEFAULT_INITIALIZER(nullptr);
 
     /// Sampler description
     struct SamplerDesc Desc;
@@ -258,7 +258,7 @@ typedef struct WebGPUResourceAttribs WebGPUResourceAttribs;
 struct PipelineResourceDesc
 {
     /// Resource name in the shader
-    const Char*                    Name          DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char*                    Name          DEFAULT_INITIALIZER(nullptr);
 
     /// Shader stages that this resource applies to. When multiple shader stages are specified,
     /// all stages will share the same resource.
@@ -342,13 +342,13 @@ typedef struct PipelineResourceDesc PipelineResourceDesc;
 struct PipelineResourceSignatureDesc DILIGENT_DERIVE(DeviceObjectAttribs)
 
     /// A pointer to an array of resource descriptions. See Diligent::PipelineResourceDesc.
-    const PipelineResourceDesc*  Resources  DEFAULT_INITIALIZER(nullptr);
+    POINTER const PipelineResourceDesc*  Resources  DEFAULT_INITIALIZER(nullptr);
 
     /// The number of resources in Resources array.
     Uint32  NumResources  DEFAULT_INITIALIZER(0);
 
     /// A pointer to an array of immutable samplers. See Diligent::ImmutableSamplerDesc.
-    const ImmutableSamplerDesc*  ImmutableSamplers  DEFAULT_INITIALIZER(nullptr);
+    POINTER const ImmutableSamplerDesc*  ImmutableSamplers  DEFAULT_INITIALIZER(nullptr);
 
     /// The number of immutable samplers in ImmutableSamplers array.
     Uint32  NumImmutableSamplers  DEFAULT_INITIALIZER(0);
@@ -374,7 +374,7 @@ struct PipelineResourceSignatureDesc DILIGENT_DERIVE(DeviceObjectAttribs)
     /// for default value "_sampler", a texture named "tex" will be combined
     /// with sampler named "tex_sampler".
     /// If UseCombinedTextureSamplers is false, this member is ignored.
-    const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
+    POINTER const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
 
     /// Shader resource binding allocation granularity
 

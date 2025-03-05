@@ -114,6 +114,15 @@
 
 #endif
 
+
+#if DILIGENT_PLATFORM_32
+#    define PADDING_FIELD() Uint32 Padding_##__LINE__;
+#    define POINTER         PADDING_FIELD()
+#else
+#    define PADDING_FIELD()
+#    define POINTER
+#endif
+
 #if DILIGENT_C_INTERFACE
 #    define DILIGENT_CPP_INTERFACE 0
 #else

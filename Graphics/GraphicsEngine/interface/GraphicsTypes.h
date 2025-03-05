@@ -1267,6 +1267,7 @@ struct OptimizedClearValue
     /// Format
     TEXTURE_FORMAT Format       DEFAULT_INITIALIZER(TEX_FORMAT_UNKNOWN);
 
+    PADDING_FIELD()
     /// Render target clear value
     Float32        Color[4]     DEFAULT_INITIALIZER({});
 
@@ -1314,7 +1315,7 @@ typedef struct OptimizedClearValue OptimizedClearValue;
 struct DeviceObjectAttribs
 {
     /// Object name
-    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
 
     // We have to explicitly define constructors because otherwise Apple's clang fails to compile the following legitimate code:
     //     DeviceObjectAttribs{"Name"}
@@ -2939,6 +2940,7 @@ DILIGENT_TYPED_ENUM(SHADING_RATE_TEXTURE_ACCESS, Uint8)
 /// Shading rate properties
 struct ShadingRateProperties
 {
+    PADDING_FIELD()
     /// Contains a list of supported combinations of shading rate and number of samples.
     /// The list is sorted from the lower to higher rate.
     ShadingRateMode        ShadingRates [DILIGENT_MAX_SHADING_RATES]  DEFAULT_INITIALIZER({});
@@ -2961,10 +2963,12 @@ struct ShadingRateProperties
     /// Indicates which bind flags are allowed for shading rate texture.
     BIND_FLAGS             BindFlags      DEFAULT_INITIALIZER(BIND_NONE);
 
+    PADDING_FIELD()
     /// Minimal supported tile size.
     /// Shading rate texture size must be less than or equal to (framebuffer_size / MinTileSize).
     Uint32                 MinTileSize[2] DEFAULT_INITIALIZER({});
 
+    PADDING_FIELD()
     /// Maximum supported tile size.
     /// Shading rate texture size must be greater than or equal to (framebuffer_size / MaxTileSize).
     Uint32                 MaxTileSize[2] DEFAULT_INITIALIZER({});
@@ -3235,6 +3239,8 @@ struct CommandQueueInfo
     /// The maximum number of immediate contexts that may be created for this queue.
     Uint32             MaxDeviceContexts   DEFAULT_INITIALIZER(0);
 
+    PADDING_FIELD()
+
     /// Defines required texture offset and size alignment for copy operations
     /// in transfer queues.
 
@@ -3267,7 +3273,7 @@ typedef struct CommandQueueInfo CommandQueueInfo;
 struct GraphicsAdapterInfo
 {
     /// A string that contains the adapter description.
-    Char Description[128]   DEFAULT_INITIALIZER({});
+    POINTER Char Description[128]   DEFAULT_INITIALIZER({});
 
     /// Adapter type, see Diligent::ADAPTER_TYPE.
     ADAPTER_TYPE   Type     DEFAULT_INITIALIZER(ADAPTER_TYPE_UNKNOWN);
@@ -3326,7 +3332,7 @@ struct GraphicsAdapterInfo
     DeviceFeatures Features;
 
     /// An array of NumQueues command queues supported by this device. See Diligent::CommandQueueInfo.
-    CommandQueueInfo  Queues[DILIGENT_MAX_ADAPTER_QUEUES]  DEFAULT_INITIALIZER({});
+    POINTER CommandQueueInfo  Queues[DILIGENT_MAX_ADAPTER_QUEUES]  DEFAULT_INITIALIZER({});
 
     /// The number of queues in Queues array.
     Uint32     NumQueues DEFAULT_INITIALIZER(0);
@@ -3376,7 +3382,7 @@ typedef struct GraphicsAdapterInfo GraphicsAdapterInfo;
 struct ImmediateContextCreateInfo
 {
     /// Context name.
-    const Char*    Name         DEFAULT_INITIALIZER(nullptr);
+    POINTER const Char*    Name         DEFAULT_INITIALIZER(nullptr);
 
     /// Queue index in GraphicsAdapterInfo::Queues.
 
@@ -3412,7 +3418,7 @@ typedef struct ImmediateContextCreateInfo ImmediateContextCreateInfo;
 struct OpenXRAttribs
 {
     /// A pointer to the xrGetInstanceProcAddr function.
-    void* GetInstanceProcAddr DEFAULT_INITIALIZER(nullptr);
+    POINTER void* GetInstanceProcAddr DEFAULT_INITIALIZER(nullptr);
 
     /// OpenXR instance handle (XrInstance).
 	Uint64 Instance DEFAULT_INITIALIZER(0);
@@ -3447,7 +3453,7 @@ struct EngineCreateInfo
     /// Recommended configuration:
     ///   * Modern discrete GPU:      1 graphics, 1 compute, 1 transfer context.
     ///   * Integrated or mobile GPU: 1..2 graphics contexts.
-    const ImmediateContextCreateInfo* pImmediateContextInfo DEFAULT_INITIALIZER(nullptr);
+    POINTER const ImmediateContextCreateInfo* pImmediateContextInfo DEFAULT_INITIALIZER(nullptr);
 
     /// The number of immediate contexts in pImmediateContextInfo array.
 
@@ -3493,7 +3499,7 @@ struct EngineCreateInfo
 
     /// Pointer to the raw memory allocator that will be used for all memory allocation/deallocation
     /// operations in the engine
-    struct IMemoryAllocator* pRawMemAllocator       DEFAULT_INITIALIZER(nullptr);
+    POINTER struct IMemoryAllocator* pRawMemAllocator       DEFAULT_INITIALIZER(nullptr);
 
     /// An optional thread pool for asynchronous shader and pipeline state compilation.
     ///
@@ -3503,7 +3509,7 @@ struct EngineCreateInfo
     /// 
     /// \note       Thread pool is not used in OpenGL backend as asynchronous shader compilation
     ///             is performed by the driver.
-    IThreadPool* pAsyncShaderCompilationThreadPool DEFAULT_INITIALIZER(nullptr);
+    POINTER IThreadPool* pAsyncShaderCompilationThreadPool DEFAULT_INITIALIZER(nullptr);
 
     /// When AsyncShaderCompilation is enabled, the maximum number of threads that can be used to compile shaders.
     ///
@@ -3523,7 +3529,7 @@ struct EngineCreateInfo
 
     /// An optional pointer to the OpenXR attributes, must be set if OpenXR is used.
     /// See Diligent::OpenXRAttribs.
-    const OpenXRAttribs *pXRAttribs DEFAULT_INITIALIZER(nullptr);
+    POINTER const OpenXRAttribs *pXRAttribs DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     EngineCreateInfo() noexcept
@@ -3733,6 +3739,7 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
     /// Direct3D12-specific validation options, see Diligent::D3D12_VALIDATION_FLAGS.
     D3D12_VALIDATION_FLAGS D3D12ValidationFlags DEFAULT_INITIALIZER(D3D12_VALIDATION_FLAG_BREAK_ON_CORRUPTION);
 
+    PADDING_FIELD()
     /// Size of the CPU descriptor heap allocations for different heap types.
     Uint32 CPUDescriptorHeapAllocationSize[4]
 #if DILIGENT_CPP_INTERFACE
@@ -3745,6 +3752,7 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
 #endif
     ;
 
+    PADDING_FIELD()
     /// The size of the GPU descriptor heap region designated to static/mutable
     /// shader resource variables.
     /// Every Shader Resource Binding object allocates one descriptor
@@ -3773,6 +3781,7 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
 #endif
     ;
 
+    PADDING_FIELD()
     /// The size of the GPU descriptor heap region designated to dynamic
     /// shader resource variables.
     /// Every Shader Resource Binding object allocates one descriptor
@@ -3796,6 +3805,7 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
 #endif
     ;
 
+    PADDING_FIELD()
     /// The size of the chunk that dynamic descriptor allocations manager
     /// requests from the main GPU descriptor heap.
     /// The total number of dynamic descriptors available across all frames in flight is
@@ -4244,6 +4254,7 @@ struct EngineWebGPUCreateInfo DILIGENT_DERIVE(EngineCreateInfo)
     /// the global dynamic heap to perform lock-free dynamic suballocations.
     Uint32 DynamicHeapPageSize DEFAULT_INITIALIZER(256 << 10);
 
+    PADDING_FIELD()
     /// Query pool size for each query type.
     Uint32 QueryPoolSizes[QUERY_TYPE_NUM_TYPES]
 #if DILIGENT_CPP_INTERFACE
@@ -4364,7 +4375,7 @@ struct TextureFormatAttribs
 {
     /// Literal texture format name (for instance, for TEX_FORMAT_RGBA8_UNORM format, this
     /// will be "TEX_FORMAT_RGBA8_UNORM")
-    const Char* Name             DEFAULT_INITIALIZER("TEX_FORMAT_UNKNOWN");
+    POINTER const Char* Name             DEFAULT_INITIALIZER("TEX_FORMAT_UNKNOWN");
 
     /// Texture format, see Diligent::TEXTURE_FORMAT for a list of supported texture formats
     TEXTURE_FORMAT Format        DEFAULT_INITIALIZER(TEX_FORMAT_UNKNOWN);
@@ -4435,6 +4446,7 @@ struct TextureFormatInfo DILIGENT_DERIVE(TextureFormatAttribs)
     /// Indicates if the format is supported by the device
     Bool Supported  DEFAULT_INITIALIZER(false);
 
+    PADDING_FIELD()
     // Explicitly pad the structure to 8-byte boundary
     Bool Padding[7] DEFAULT_INITIALIZER({});
 
@@ -4536,6 +4548,8 @@ struct SparseTextureFormatInfo
 {
     /// Allowed bind flags for this format.
     BIND_FLAGS BindFlags    DEFAULT_INITIALIZER(BIND_NONE);
+
+    PADDING_FIELD()
 
     /// The dimensions of the sparse texture tile.
 

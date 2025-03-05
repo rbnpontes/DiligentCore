@@ -105,7 +105,7 @@ struct DeviceMemoryCreateInfo
     ///       and above, but is required on D3D12_RESOURCE_HEAP_TIER_1-hardware
     ///       (see SPARSE_RESOURCE_CAP_FLAG_MIXED_RESOURCE_TYPE_SUPPORT).
     ///       It is recommended to always provide the list.
-    IDeviceObject**   ppCompatibleResources DEFAULT_INITIALIZER(nullptr);
+    POINTER IDeviceObject**   ppCompatibleResources DEFAULT_INITIALIZER(nullptr);
 
     /// The number of elements in the ppCompatibleResources array.
     Uint32            NumResources          DEFAULT_INITIALIZER(0);
