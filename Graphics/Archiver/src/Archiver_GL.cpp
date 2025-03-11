@@ -284,7 +284,7 @@ public:
     {
         ShaderCI.FilePath       = nullptr;
         ShaderCI.ByteCode       = nullptr;
-        ShaderCI.Source         = m_UnrolledSource.c_str();
+        ShaderCI.Source         = const_cast<Char*>(m_UnrolledSource.c_str());
         ShaderCI.SourceLength   = m_UnrolledSource.length();
         ShaderCI.ShaderCompiler = SHADER_COMPILER_DEFAULT;
         ShaderCI.Macros         = {}; // Macros are inlined into unrolled source

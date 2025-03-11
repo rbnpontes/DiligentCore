@@ -56,6 +56,7 @@ struct BLASTriangleDesc
     /// Geometry name.
     /// The name is used to map triangle data (BLASBuildTriangleData) to this geometry.
     const Char*               GeometryName          DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The maximum vertex count in this geometry.
     /// Current number of vertices is defined in BLASBuildTriangleData::VertexCount.
@@ -112,6 +113,7 @@ struct BLASBoundingBoxDesc
     /// Geometry name.
     /// The name is used to map AABB data (BLASBuildBoundingBoxData) to this geometry.
     const Char*               GeometryName  DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The maximum AABB count.
     /// Current number of AABBs is defined in BLASBuildBoundingBoxData::BoxCount.
@@ -175,12 +177,15 @@ struct BottomLevelASDesc DILIGENT_DERIVE(DeviceObjectAttribs)
 
     /// Array of triangle geometry descriptions.
     const BLASTriangleDesc*    pTriangles       DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of triangle geometries in pTriangles array.
     Uint32                     TriangleCount    DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Array of AABB geometry descriptions.
     const BLASBoundingBoxDesc* pBoxes           DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of AABB geometries in pBoxes array.
     Uint32                     BoxCount         DEFAULT_INITIALIZER(0);

@@ -185,7 +185,8 @@ typedef struct BufferDesc BufferDesc;
 struct BufferData
 {
     /// Pointer to the data
-    POINTER const void* pData DEFAULT_INITIALIZER(nullptr);
+    const void* pData DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Data size, in bytes
     Uint64 DataSize   DEFAULT_INITIALIZER(0);
@@ -197,7 +198,7 @@ struct BufferData
     /// must synchronize the access to the buffer using fence.
     /// When null is provided, the first context enabled by ImmediateContextMask
     /// will be used.
-    POINTER struct IDeviceContext*  pContext  DEFAULT_INITIALIZER(nullptr);
+    struct IDeviceContext*  pContext  DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
 

@@ -1267,7 +1267,6 @@ struct OptimizedClearValue
     /// Format
     TEXTURE_FORMAT Format       DEFAULT_INITIALIZER(TEX_FORMAT_UNKNOWN);
 
-    PADDING_FIELD()
     /// Render target clear value
     Float32        Color[4]     DEFAULT_INITIALIZER({});
 
@@ -1315,8 +1314,8 @@ typedef struct OptimizedClearValue OptimizedClearValue;
 struct DeviceObjectAttribs
 {
     /// Object name
-    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
-
+    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
     // We have to explicitly define constructors because otherwise Apple's clang fails to compile the following legitimate code:
     //     DeviceObjectAttribs{"Name"}
 
@@ -2940,7 +2939,6 @@ DILIGENT_TYPED_ENUM(SHADING_RATE_TEXTURE_ACCESS, Uint8)
 /// Shading rate properties
 struct ShadingRateProperties
 {
-    PADDING_FIELD()
     /// Contains a list of supported combinations of shading rate and number of samples.
     /// The list is sorted from the lower to higher rate.
     ShadingRateMode        ShadingRates [DILIGENT_MAX_SHADING_RATES]  DEFAULT_INITIALIZER({});
@@ -2963,12 +2961,10 @@ struct ShadingRateProperties
     /// Indicates which bind flags are allowed for shading rate texture.
     BIND_FLAGS             BindFlags      DEFAULT_INITIALIZER(BIND_NONE);
 
-    PADDING_FIELD()
     /// Minimal supported tile size.
     /// Shading rate texture size must be less than or equal to (framebuffer_size / MinTileSize).
     Uint32                 MinTileSize[2] DEFAULT_INITIALIZER({});
 
-    PADDING_FIELD()
     /// Maximum supported tile size.
     /// Shading rate texture size must be greater than or equal to (framebuffer_size / MaxTileSize).
     Uint32                 MaxTileSize[2] DEFAULT_INITIALIZER({});
@@ -3239,8 +3235,6 @@ struct CommandQueueInfo
     /// The maximum number of immediate contexts that may be created for this queue.
     Uint32             MaxDeviceContexts   DEFAULT_INITIALIZER(0);
 
-    PADDING_FIELD()
-
     /// Defines required texture offset and size alignment for copy operations
     /// in transfer queues.
 
@@ -3273,7 +3267,7 @@ typedef struct CommandQueueInfo CommandQueueInfo;
 struct GraphicsAdapterInfo
 {
     /// A string that contains the adapter description.
-    POINTER Char Description[128]   DEFAULT_INITIALIZER({});
+    Char Description[128]   DEFAULT_INITIALIZER({});
 
     /// Adapter type, see Diligent::ADAPTER_TYPE.
     ADAPTER_TYPE   Type     DEFAULT_INITIALIZER(ADAPTER_TYPE_UNKNOWN);
@@ -3332,7 +3326,7 @@ struct GraphicsAdapterInfo
     DeviceFeatures Features;
 
     /// An array of NumQueues command queues supported by this device. See Diligent::CommandQueueInfo.
-    POINTER CommandQueueInfo  Queues[DILIGENT_MAX_ADAPTER_QUEUES]  DEFAULT_INITIALIZER({});
+    CommandQueueInfo  Queues[DILIGENT_MAX_ADAPTER_QUEUES]  DEFAULT_INITIALIZER({});
 
     /// The number of queues in Queues array.
     Uint32     NumQueues DEFAULT_INITIALIZER(0);
@@ -3382,7 +3376,9 @@ typedef struct GraphicsAdapterInfo GraphicsAdapterInfo;
 struct ImmediateContextCreateInfo
 {
     /// Context name.
-    POINTER const Char*    Name         DEFAULT_INITIALIZER(nullptr);
+    const Char*    Name         DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
+
 
     /// Queue index in GraphicsAdapterInfo::Queues.
 
@@ -3418,7 +3414,8 @@ typedef struct ImmediateContextCreateInfo ImmediateContextCreateInfo;
 struct OpenXRAttribs
 {
     /// A pointer to the xrGetInstanceProcAddr function.
-    POINTER void* GetInstanceProcAddr DEFAULT_INITIALIZER(nullptr);
+    void* GetInstanceProcAddr DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// OpenXR instance handle (XrInstance).
 	Uint64 Instance DEFAULT_INITIALIZER(0);
@@ -3453,7 +3450,8 @@ struct EngineCreateInfo
     /// Recommended configuration:
     ///   * Modern discrete GPU:      1 graphics, 1 compute, 1 transfer context.
     ///   * Integrated or mobile GPU: 1..2 graphics contexts.
-    POINTER const ImmediateContextCreateInfo* pImmediateContextInfo DEFAULT_INITIALIZER(nullptr);
+    const ImmediateContextCreateInfo* pImmediateContextInfo DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of immediate contexts in pImmediateContextInfo array.
 
@@ -3496,11 +3494,13 @@ struct EngineCreateInfo
 
     /// Validation options, see Diligent::VALIDATION_FLAGS.
     VALIDATION_FLAGS    ValidationFlags             DEFAULT_INITIALIZER(VALIDATION_FLAG_NONE);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the raw memory allocator that will be used for all memory allocation/deallocation
     /// operations in the engine
-    POINTER struct IMemoryAllocator* pRawMemAllocator       DEFAULT_INITIALIZER(nullptr);
-
+    struct IMemoryAllocator* pRawMemAllocator       DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
+    
     /// An optional thread pool for asynchronous shader and pipeline state compilation.
     ///
     /// \remarks    When AsyncShaderCompilation device feature is enabled, the engine will use
@@ -3509,8 +3509,8 @@ struct EngineCreateInfo
     /// 
     /// \note       Thread pool is not used in OpenGL backend as asynchronous shader compilation
     ///             is performed by the driver.
-    POINTER IThreadPool* pAsyncShaderCompilationThreadPool DEFAULT_INITIALIZER(nullptr);
-
+    IThreadPool* pAsyncShaderCompilationThreadPool DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
     /// When AsyncShaderCompilation is enabled, the maximum number of threads that can be used to compile shaders.
     ///
     /// \remarks    If AsyncShaderCompilation device feature is enabled and pAsyncShaderCompilationThreadPool is null,
@@ -3523,13 +3523,14 @@ struct EngineCreateInfo
     ///             In OpenGL backend, the thread pool is not used and the value is passed to glMaxShaderCompilerThreadsKHR()
     ///             function.
     Uint32 NumAsyncShaderCompilationThreads DEFAULT_INITIALIZER(0xFFFFFFFFu);
+    WEB_DWORD_PADDING()
 
     // The structure must be 8-byte aligned
     Uint32 Padding DEFAULT_INITIALIZER(0);
 
     /// An optional pointer to the OpenXR attributes, must be set if OpenXR is used.
     /// See Diligent::OpenXRAttribs.
-    POINTER const OpenXRAttribs *pXRAttribs DEFAULT_INITIALIZER(nullptr);
+    const OpenXRAttribs *pXRAttribs DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     EngineCreateInfo() noexcept
@@ -3739,7 +3740,6 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
     /// Direct3D12-specific validation options, see Diligent::D3D12_VALIDATION_FLAGS.
     D3D12_VALIDATION_FLAGS D3D12ValidationFlags DEFAULT_INITIALIZER(D3D12_VALIDATION_FLAG_BREAK_ON_CORRUPTION);
 
-    PADDING_FIELD()
     /// Size of the CPU descriptor heap allocations for different heap types.
     Uint32 CPUDescriptorHeapAllocationSize[4]
 #if DILIGENT_CPP_INTERFACE
@@ -3752,7 +3752,6 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
 #endif
     ;
 
-    PADDING_FIELD()
     /// The size of the GPU descriptor heap region designated to static/mutable
     /// shader resource variables.
     /// Every Shader Resource Binding object allocates one descriptor
@@ -3781,7 +3780,6 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
 #endif
     ;
 
-    PADDING_FIELD()
     /// The size of the GPU descriptor heap region designated to dynamic
     /// shader resource variables.
     /// Every Shader Resource Binding object allocates one descriptor
@@ -3805,7 +3803,6 @@ struct EngineD3D12CreateInfo DILIGENT_DERIVE(EngineCreateInfo)
 #endif
     ;
 
-    PADDING_FIELD()
     /// The size of the chunk that dynamic descriptor allocations manager
     /// requests from the main GPU descriptor heap.
     /// The total number of dynamic descriptors available across all frames in flight is
@@ -4233,7 +4230,7 @@ typedef struct EngineMtlCreateInfo EngineMtlCreateInfo;
 
 /// Attributes of the WebGPU-based engine implementation
 struct EngineWebGPUCreateInfo DILIGENT_DERIVE(EngineCreateInfo)
-
+    WEB_DWORD_PADDING()
     /// Upload heap page size.
     ///
     /// \remarks    Upload heap is used to update resources with IDeviceContext::UpdateBuffer(),
@@ -4254,7 +4251,6 @@ struct EngineWebGPUCreateInfo DILIGENT_DERIVE(EngineCreateInfo)
     /// the global dynamic heap to perform lock-free dynamic suballocations.
     Uint32 DynamicHeapPageSize DEFAULT_INITIALIZER(256 << 10);
 
-    PADDING_FIELD()
     /// Query pool size for each query type.
     Uint32 QueryPoolSizes[QUERY_TYPE_NUM_TYPES]
 #if DILIGENT_CPP_INTERFACE
@@ -4375,7 +4371,8 @@ struct TextureFormatAttribs
 {
     /// Literal texture format name (for instance, for TEX_FORMAT_RGBA8_UNORM format, this
     /// will be "TEX_FORMAT_RGBA8_UNORM")
-    POINTER const Char* Name             DEFAULT_INITIALIZER("TEX_FORMAT_UNKNOWN");
+    const Char* Name             DEFAULT_INITIALIZER("TEX_FORMAT_UNKNOWN");
+    WEB_DWORD_PADDING()
 
     /// Texture format, see Diligent::TEXTURE_FORMAT for a list of supported texture formats
     TEXTURE_FORMAT Format        DEFAULT_INITIALIZER(TEX_FORMAT_UNKNOWN);
@@ -4446,7 +4443,6 @@ struct TextureFormatInfo DILIGENT_DERIVE(TextureFormatAttribs)
     /// Indicates if the format is supported by the device
     Bool Supported  DEFAULT_INITIALIZER(false);
 
-    PADDING_FIELD()
     // Explicitly pad the structure to 8-byte boundary
     Bool Padding[7] DEFAULT_INITIALIZER({});
 
@@ -4548,8 +4544,6 @@ struct SparseTextureFormatInfo
 {
     /// Allowed bind flags for this format.
     BIND_FLAGS BindFlags    DEFAULT_INITIALIZER(BIND_NONE);
-
-    PADDING_FIELD()
 
     /// The dimensions of the sparse texture tile.
 

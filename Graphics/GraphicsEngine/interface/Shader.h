@@ -148,7 +148,8 @@ struct ShaderDesc DILIGENT_DERIVE(DeviceObjectAttribs)
     /// If UseCombinedTextureSamplers is false, this member is ignored.
     ///
     /// This member has no effect if the shader is used in the PSO that uses pipeline resource signature(s).
-    POINTER const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
+    const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     constexpr ShaderDesc() noexcept {}
@@ -252,10 +253,11 @@ DILIGENT_END_INTERFACE
 struct ShaderMacro
 {
     /// Macro name
-    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
+    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Macro definition
-    POINTER const Char* Definition DEFAULT_INITIALIZER(nullptr);
+    const Char* Definition DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr ShaderMacro() noexcept
@@ -285,10 +287,12 @@ typedef struct ShaderMacro ShaderMacro;
 struct ShaderMacroArray
 {
     /// A pointer to the array elements
-    POINTER const ShaderMacro* Elements DEFAULT_INITIALIZER(nullptr);
+    const ShaderMacro* Elements DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of elements in the array
     Uint32 Count DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     constexpr ShaderMacroArray() noexcept
@@ -382,18 +386,21 @@ struct ShaderCreateInfo
     /// Source file path
 
     /// If source file path is provided, Source and ByteCode members must be null
-    POINTER const Char* FilePath DEFAULT_INITIALIZER(nullptr);
+    const Char* FilePath DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the shader source input stream factory.
 
     /// The factory is used to load the shader source file if FilePath is not null.
     /// It is also used to create additional input streams for shader include files
-    POINTER IShaderSourceInputStreamFactory* pShaderSourceStreamFactory DEFAULT_INITIALIZER(nullptr);
+    IShaderSourceInputStreamFactory* pShaderSourceStreamFactory DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Shader source
 
     /// If shader source is provided, FilePath and ByteCode members must be null
-    POINTER const Char* Source DEFAULT_INITIALIZER(nullptr);
+    const Char* Source DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Compiled shader bytecode.
 
@@ -408,7 +415,8 @@ struct ShaderCreateInfo
     ///        must contain reflection information. If shaders were compiled
     ///        using fxc, make sure that /Qstrip_reflect option is *not* specified.
     ///        HLSL shaders need to be compiled against 4.0 profile or higher.
-    POINTER const void* ByteCode DEFAULT_INITIALIZER(nullptr);
+    const void* ByteCode DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
 #if defined(DILIGENT_SHARP_GEN)
     size_t ByteCodeSize DEFAULT_INITIALIZER(0);
@@ -430,11 +438,13 @@ struct ShaderCreateInfo
         size_t ByteCodeSize;
     };
 #endif
+    WEB_DWORD_PADDING()
 
     /// Shader entry point
 
     /// This member is ignored if ByteCode is not null
-    POINTER const Char* EntryPoint DEFAULT_INITIALIZER("main");
+    const Char* EntryPoint DEFAULT_INITIALIZER("main");
+    WEB_DWORD_PADDING()
 
     /// Shader macros (see Diligent::ShaderMacroArray)
     ShaderMacroArray Macros;
@@ -480,10 +490,11 @@ struct ShaderCreateInfo
     /// \note Loading constant buffer reflection introduces some overhead,
     ///       and should be disabled when it is not needed.
     bool LoadConstantBufferReflection DEFAULT_INITIALIZER(false);
+    WEB_DWORD_PADDING()
 
     /// An optional list of GLSL extensions to enable when compiling GLSL source code.
-    POINTER const char* GLSLExtensions DEFAULT_INITIALIZER(nullptr);
-
+    const char* GLSLExtensions DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
     /// An optional suffix to append to the name of emulated array variables to get
     /// the indexed array element name.
     ///
@@ -497,7 +508,7 @@ struct ShaderCreateInfo
     ///             When suffix is null or empty, no array emulation is performed.
     ///
     /// \remarks    This member is ignored when compiling shaders for backends other than WebGPU.
-    POINTER const char* WebGPUEmulatedArrayIndexSuffix DEFAULT_INITIALIZER(nullptr);
+    const char* WebGPUEmulatedArrayIndexSuffix DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE && !defined(DILIGENT_SHARP_GEN)
     constexpr ShaderCreateInfo() noexcept
@@ -681,6 +692,7 @@ struct ShaderResourceDesc
     // clang-format off
     /// Shader resource name
     const Char*          Name      DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Shader resource type, see Diligent::SHADER_RESOURCE_TYPE.
     SHADER_RESOURCE_TYPE Type      DEFAULT_INITIALIZER(SHADER_RESOURCE_TYPE_UNKNOWN);
@@ -817,9 +829,11 @@ typedef struct ShaderCodeVariableDesc
 {
     /// The variable name.
     const char* Name DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The variable type name. May be null for basic types.
     const char* TypeName DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Variable class, see Diligent::SHADER_CODE_VARIABLE_CLASS.
     SHADER_CODE_VARIABLE_CLASS Class DEFAULT_INITIALIZER(SHADER_CODE_VARIABLE_CLASS_UNKNOWN);

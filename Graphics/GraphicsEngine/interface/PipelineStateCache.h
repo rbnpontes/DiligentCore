@@ -87,7 +87,8 @@ struct PipelineStateCacheCreateInfo
     PipelineStateCacheDesc Desc;
 
     /// All fields can be null to create an empty cache
-    POINTER const void* pCacheData    DEFAULT_INITIALIZER(nullptr);
+    const void* pCacheData    DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The size of data pointed to by pCacheData
     Uint32      CacheDataSize DEFAULT_INITIALIZER(0);

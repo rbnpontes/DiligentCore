@@ -55,6 +55,7 @@ struct DeviceMemoryDesc DILIGENT_DERIVE(DeviceObjectAttribs)
 
     /// Memory type, see Diligent::DEVICE_MEMORY_TYPE.
     DEVICE_MEMORY_TYPE  Type                  DEFAULT_INITIALIZER(DEVICE_MEMORY_TYPE_UNDEFINED);
+    WEB_DWORD_PADDING()
 
     /// Size of the memory page.
     /// Depending on the implementation, the memory may be allocated as a single chunk or as an array of pages.
@@ -105,7 +106,8 @@ struct DeviceMemoryCreateInfo
     ///       and above, but is required on D3D12_RESOURCE_HEAP_TIER_1-hardware
     ///       (see SPARSE_RESOURCE_CAP_FLAG_MIXED_RESOURCE_TYPE_SUPPORT).
     ///       It is recommended to always provide the list.
-    POINTER IDeviceObject**   ppCompatibleResources DEFAULT_INITIALIZER(nullptr);
+    IDeviceObject**   ppCompatibleResources DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of elements in the ppCompatibleResources array.
     Uint32            NumResources          DEFAULT_INITIALIZER(0);

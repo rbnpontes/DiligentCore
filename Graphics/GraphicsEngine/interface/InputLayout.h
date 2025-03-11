@@ -72,7 +72,8 @@ struct LayoutElement
     /// to GLSL and used in OpenGL backend as well as compiled to SPIRV and used
     /// in Vulkan backend.
     /// Any value other than default will only work in Direct3D11 and Direct3D12 backends.
-    POINTER const Char* HLSLSemantic DEFAULT_INITIALIZER("ATTRIB");
+    const Char* HLSLSemantic DEFAULT_INITIALIZER("ATTRIB");
+    WEB_DWORD_PADDING()
 
     /// Input index of the element that is specified in the vertex shader.
     /// In Direct3D11 and Direct3D12 backends this is the semantic index.
@@ -209,9 +210,12 @@ typedef struct LayoutElement LayoutElement;
 struct InputLayoutDesc
 {
     /// Array of layout elements
-    POINTER const LayoutElement* LayoutElements  DEFAULT_INITIALIZER(nullptr);
+    const LayoutElement* LayoutElements  DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
+
     /// Number of layout elements
     Uint32               NumElements     DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     constexpr InputLayoutDesc() noexcept {}

@@ -126,7 +126,6 @@ struct SamplerDesc DILIGENT_DERIVE(DeviceObjectAttribs)
     /// filter is used. Default value: Diligent::COMPARISON_FUNC_NEVER.
     COMPARISON_FUNCTION ComparisonFunc  DEFAULT_INITIALIZER(COMPARISON_FUNC_NEVER);
 
-    PADDING_FIELD()
     /// Border color to use if TEXTURE_ADDRESS_BORDER is specified for AddressU, AddressV, or AddressW.
     /// Default value: {0,0,0,0}
     Float32 BorderColor[4]              DEFAULT_INITIALIZER({});

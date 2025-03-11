@@ -137,7 +137,7 @@ struct TLASInstanceDesc
     Uint32          InstanceIndex               DEFAULT_INITIALIZER(0);
 
     /// Bottom-level AS that is specified in TLASBuildInstanceData::pBLAS.
-    POINTER IBottomLevelAS* pBLAS                       DEFAULT_INITIALIZER(nullptr);
+    IBottomLevelAS* pBLAS                       DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr TLASInstanceDesc() noexcept {}

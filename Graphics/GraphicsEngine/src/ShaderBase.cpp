@@ -90,7 +90,7 @@ ShaderCreateInfoWrapper::ShaderCreateInfoWrapper(const ShaderCreateInfo& ShaderC
     }
     else if (ShaderCI.Source != nullptr)
     {
-        m_CreateInfo.Source       = Allocator.CopyString(ShaderCI.Source, ShaderCI.SourceLength);
+        m_CreateInfo.Source       = const_cast<Char*>(Allocator.CopyString(ShaderCI.Source, ShaderCI.SourceLength));
         m_CreateInfo.SourceLength = ShaderCI.SourceLength;
     }
     else

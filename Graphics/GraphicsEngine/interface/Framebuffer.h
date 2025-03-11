@@ -48,13 +48,16 @@ static DILIGENT_CONSTEXPR struct INTERFACE_ID IID_Framebuffer =
 struct FramebufferDesc DILIGENT_DERIVE(DeviceObjectAttribs)
 
     /// Render pass that the framebuffer will be compatible with.
-    POINTER IRenderPass*         pRenderPass     DEFAULT_INITIALIZER(nullptr);
+    IRenderPass*         pRenderPass     DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of attachments.
     Uint32               AttachmentCount DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of attachments.
-    POINTER ITextureView* const* ppAttachments   DEFAULT_INITIALIZER(nullptr);
+    ITextureView* const* ppAttachments   DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Width of the framebuffer.
     Uint32               Width           DEFAULT_INITIALIZER(0);

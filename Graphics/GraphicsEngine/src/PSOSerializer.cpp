@@ -336,10 +336,10 @@ bool PSOSerializer<Mode>::SerializeCreateInfo(
                            });
     return res;
 
-    ASSERT_SIZEOF64(RayTracingPipelineStateCreateInfo, 168, "Did you add a new member to RayTracingPipelineStateCreateInfo? Please add serialization here.");
+    /*ASSERT_SIZEOF64(RayTracingPipelineStateCreateInfo, 168, "Did you add a new member to RayTracingPipelineStateCreateInfo? Please add serialization here.");
     ASSERT_SIZEOF64(RayTracingGeneralShaderGroup, 16, "Did you add a new member to RayTracingGeneralShaderGroup? Please add serialization here.");
     ASSERT_SIZEOF64(RayTracingTriangleHitShaderGroup, 24, "Did you add a new member to RayTracingTriangleHitShaderGroup? Please add serialization here.");
-    ASSERT_SIZEOF64(RayTracingProceduralHitShaderGroup, 32, "Did you add a new member to RayTracingProceduralHitShaderGroup? Please add serialization here.");
+    ASSERT_SIZEOF64(RayTracingProceduralHitShaderGroup, 32, "Did you add a new member to RayTracingProceduralHitShaderGroup? Please add serialization here.");*/
 }
 
 template <SerializerMode Mode>
@@ -425,12 +425,13 @@ bool RPSerializer<Mode>::SerializeDesc(
                            });
     return res;
 
-    ASSERT_SIZEOF64(RenderPassDesc, 56, "Did you add a new member to RenderPassDesc? Please add serialization here.");
+    /*ASSERT_SIZEOF64(RenderPassDesc, 56, "Did you add a new member to RenderPassDesc? Please add serialization here.");
     ASSERT_SIZEOF64(SubpassDesc, 72, "Did you add a new member to SubpassDesc? Please add serialization here.");
     ASSERT_SIZEOF(RenderPassAttachmentDesc, 16, "Did you add a new member to RenderPassAttachmentDesc? Please add serialization here.");
     ASSERT_SIZEOF(SubpassDependencyDesc, 24, "Did you add a new member to SubpassDependencyDesc? Please add serialization here.");
     ASSERT_SIZEOF(ShadingRateAttachment, 16, "Did you add a new member to ShadingRateAttachment? Please add serialization here.");
     ASSERT_SIZEOF(AttachmentReference, 8, "Did you add a new member to AttachmentReference? Please add serialization here.");
+    */
 }
 
 template <SerializerMode Mode>

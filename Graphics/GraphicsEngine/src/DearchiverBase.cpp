@@ -257,7 +257,10 @@ bool DearchiverBase::UnpackPSORenderPass<GraphicsPipelineStateCreateInfo>(PSODat
         return true;
 
     RefCntAutoPtr<IRenderPass> pRenderPass;
-    UnpackRenderPass(RenderPassUnpackInfo{pRenderDevice, PSO.RenderPassName}, &pRenderPass);
+    RenderPassUnpackInfo       UnpackInfo{};
+    UnpackInfo.pDevice = pRenderDevice;
+    UnpackInfo.Name    = PSO.RenderPassName;
+    UnpackRenderPass(UnpackInfo, &pRenderPass);
     if (!pRenderPass)
         return false;
 
@@ -280,7 +283,9 @@ bool DearchiverBase::UnpackPSOSignatures(PSOData<CreateInfoType>& PSO, IRenderDe
     PSO.CreateInfo.ppResourceSignatures = ppResourceSignatures;
     for (Uint32 i = 0; i < ResourceSignaturesCount; ++i)
     {
-        ResourceSignatureUnpackInfo UnpackInfo{pRenderDevice, PSO.PRSNames[i]};
+        ResourceSignatureUnpackInfo UnpackInfo{};
+        UnpackInfo.pDevice = pRenderDevice;
+        UnpackInfo.Name    = PSO.PRSNames[i];
         UnpackInfo.SRBAllocationGranularity = PSO.CreateInfo.PSODesc.SRBAllocationGranularity;
 
         auto pSignature = UnpackResourceSignature(UnpackInfo, (PSO.InternalCI.Flags & PSO_CREATE_INTERNAL_FLAG_IMPLICIT_SIGNATURE0) != 0);

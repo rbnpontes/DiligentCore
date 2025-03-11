@@ -50,7 +50,7 @@ static DILIGENT_CONSTEXPR INTERFACE_ID IID_ShaderBindingTable =
 struct ShaderBindingTableDesc DILIGENT_DERIVE(DeviceObjectAttribs)
 
     /// Ray tracing pipeline state object from which shaders will be taken.
-    POINTER IPipelineState* pPSO  DEFAULT_INITIALIZER(nullptr);
+    IPipelineState* pPSO  DEFAULT_INITIALIZER(nullptr);
 };
 typedef struct ShaderBindingTableDesc ShaderBindingTableDesc;
 

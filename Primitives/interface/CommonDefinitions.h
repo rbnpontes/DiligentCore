@@ -115,17 +115,26 @@
 #endif
 
 
-#if DILIGENT_PLATFORM_32
-#    define _CONCAT_FIELD_IMPL(x, y)       x##y
-#    define _CONCAT_FIELD(x, y)            _CONCAT_FIELD_IMPL(x, y)
-#    define PADDING_FIELD()                Uint32 _CONCAT_FIELD(Padding_, __LINE__) = 0;
-#    define POINTER                        PADDING_FIELD()
-#    define SIZE_WITH_PADDING(size, count) (size + (sizeof(Uint32) * count))
+#define _CONCAT_FIELD_IMPL(x, y)       x##y
+#define _CONCAT_FIELD(x, y)            _CONCAT_FIELD_IMPL(x, y)
+#define FIELD_PADDING(size)            size _CONCAT_FIELD(Padding_, __LINE__) DEFAULT_INITIALIZER(0);
+#define BYTE_PADDING()                 FIELD_PADDING(Diligent::Uint8)
+#define WORD_PADDING()                 FIELD_PADDING(Diligent::Uint16)
+#define DWORD_PADDING()                FIELD_PADDING(Diligent::Uint32)
+#define QWORD_PADDING()                FIELD_PADDING(Diligent::Uint64)
+
+#if PLATFORM_WEB
+#    define WEB_BYTE_PADDING()         BYTE_PADDING()
+#    define WEB_WORD_PADDING()         WORD_PADDING()
+#    define WEB_DWORD_PADDING()        DWORD_PADDING()
+#    define WEB_QWORD_PADDING()        QWORD_PADDING()
 #else
-#    define PADDING_FIELD()
-#    define POINTER
-#    define SIZE_WITH_PADDING(...) 0
+#    define WEB_BYTE_PADDING()
+#    define WEB_WORD_PADDING()
+#    define WEB_DWORD_PADDING()
+#    define WEB_QWORD_PADDING()
 #endif
+
 
 #if DILIGENT_C_INTERFACE
 #    define DILIGENT_CPP_INTERFACE 0

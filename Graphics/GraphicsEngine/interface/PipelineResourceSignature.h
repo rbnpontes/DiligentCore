@@ -52,10 +52,12 @@ struct ImmutableSamplerDesc
 {
     /// Shader stages that this immutable sampler applies to. More than one shader stage can be specified.
     SHADER_TYPE ShaderStages         DEFAULT_INITIALIZER(SHADER_TYPE_UNKNOWN);
+    WEB_DWORD_PADDING()
 
     /// The name of the sampler itself or the name of the texture variable that
     /// this immutable sampler is assigned to if combined texture samplers are used.
-    POINTER const Char* SamplerOrTextureName DEFAULT_INITIALIZER(nullptr);
+    const Char* SamplerOrTextureName DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Sampler description
     struct SamplerDesc Desc;
@@ -258,7 +260,8 @@ typedef struct WebGPUResourceAttribs WebGPUResourceAttribs;
 struct PipelineResourceDesc
 {
     /// Resource name in the shader
-    POINTER const Char*                    Name          DEFAULT_INITIALIZER(nullptr);
+    const Char*                    Name          DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Shader stages that this resource applies to. When multiple shader stages are specified,
     /// all stages will share the same resource.
@@ -342,13 +345,16 @@ typedef struct PipelineResourceDesc PipelineResourceDesc;
 struct PipelineResourceSignatureDesc DILIGENT_DERIVE(DeviceObjectAttribs)
 
     /// A pointer to an array of resource descriptions. See Diligent::PipelineResourceDesc.
-    POINTER const PipelineResourceDesc*  Resources  DEFAULT_INITIALIZER(nullptr);
+    const PipelineResourceDesc*  Resources  DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of resources in Resources array.
     Uint32  NumResources  DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// A pointer to an array of immutable samplers. See Diligent::ImmutableSamplerDesc.
-    POINTER const ImmutableSamplerDesc*  ImmutableSamplers  DEFAULT_INITIALIZER(nullptr);
+    const ImmutableSamplerDesc*  ImmutableSamplers  DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of immutable samplers in ImmutableSamplers array.
     Uint32  NumImmutableSamplers  DEFAULT_INITIALIZER(0);
@@ -374,7 +380,8 @@ struct PipelineResourceSignatureDesc DILIGENT_DERIVE(DeviceObjectAttribs)
     /// for default value "_sampler", a texture named "tex" will be combined
     /// with sampler named "tex_sampler".
     /// If UseCombinedTextureSamplers is false, this member is ignored.
-    POINTER const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
+    const Char* CombinedSamplerSuffix DEFAULT_INITIALIZER("_sampler");
+    WEB_DWORD_PADDING()
 
     /// Shader resource binding allocation granularity
 

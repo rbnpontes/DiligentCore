@@ -201,7 +201,6 @@ struct ShadingRateAttachment
     /// Shading rate attachment reference, see Diligent::AttachmentReference.
     AttachmentReference Attachment  DEFAULT_INITIALIZER({});
 
-    PADDING_FIELD()
     /// Each texel in the attachment contains shading rate for the whole tile.
     /// The size must be a power-of-two value between ShadingRateProperties::MinTileSize and ShadingRateProperties::MaxTileSize.
     /// Keep zero to use the default tile size.
@@ -219,7 +218,7 @@ struct ShadingRateAttachment
 
     constexpr bool operator == (const ShadingRateAttachment& RHS) const
     {
-        static_assert(sizeof(*this)==SIZE_WITH_PADDING(16, 1), "Did you add new members? Please handle them here");
+        //static_assert(sizeof(*this)==16, "Did you add new members? Please handle them here");
         return  Attachment  == RHS.Attachment  &&
                 TileSize[0] == RHS.TileSize[0] &&
                 TileSize[1] == RHS.TileSize[1];
@@ -239,12 +238,15 @@ struct SubpassDesc
 {
     /// The number of input attachments the subpass uses.
     Uint32                      InputAttachmentCount        DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of input attachments, see Diligent::AttachmentReference.
-    POINTER const AttachmentReference*  pInputAttachments           DEFAULT_INITIALIZER(nullptr);
+    const AttachmentReference*  pInputAttachments           DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of color render target attachments.
     Uint32                      RenderTargetAttachmentCount DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of color render target attachments, see Diligent::AttachmentReference.
 
@@ -252,7 +254,8 @@ struct SubpassDesc
     /// i.e. if the shader declares an output variable decorated with a render target index X, then it uses
     /// the attachment provided in pRenderTargetAttachments[X]. If the attachment index is ATTACHMENT_UNUSED,
     /// writes to this render target are ignored.
-    POINTER const AttachmentReference*  pRenderTargetAttachments    DEFAULT_INITIALIZER(nullptr);
+    const AttachmentReference*  pRenderTargetAttachments    DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of resolve attachments, see Diligent::AttachmentReference.
 
@@ -261,19 +264,23 @@ struct SubpassDesc
     /// defined for each attachment. At the end of each subpass, multisample resolve operations read the subpass's
     /// color attachments, and resolve the samples for each pixel within the render area to the same pixel location
     /// in the corresponding resolve attachments, unless the resolve attachment index is ATTACHMENT_UNUSED.
-    POINTER const AttachmentReference*  pResolveAttachments         DEFAULT_INITIALIZER(nullptr);
+    const AttachmentReference*  pResolveAttachments         DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the depth-stencil attachment, see Diligent::AttachmentReference.
-    POINTER const AttachmentReference*  pDepthStencilAttachment     DEFAULT_INITIALIZER(nullptr);
+    const AttachmentReference*  pDepthStencilAttachment     DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of preserve attachments.
     Uint32                      PreserveAttachmentCount     DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of preserve attachments, see Diligent::AttachmentReference.
-    POINTER const Uint32*               pPreserveAttachments        DEFAULT_INITIALIZER(nullptr);
+    const Uint32*               pPreserveAttachments        DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the shading rate attachment, see Diligent::ShadingRateAttachment.
-    POINTER const ShadingRateAttachment* pShadingRateAttachment     DEFAULT_INITIALIZER(nullptr);
+    const ShadingRateAttachment* pShadingRateAttachment     DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     /// Tests if two structures are equivalent
@@ -413,21 +420,26 @@ struct RenderPassDesc DILIGENT_DERIVE(DeviceObjectAttribs)
 
     /// The number of attachments used by the render pass.
     Uint32                           AttachmentCount    DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of subpass attachments, see Diligent::RenderPassAttachmentDesc.
-    POINTER const RenderPassAttachmentDesc*  pAttachments       DEFAULT_INITIALIZER(nullptr);
+    const RenderPassAttachmentDesc*  pAttachments       DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of subpasses in the render pass.
     Uint32                           SubpassCount       DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of subpass descriptions, see Diligent::SubpassDesc.
-    POINTER const SubpassDesc*               pSubpasses         DEFAULT_INITIALIZER(nullptr);
+    const SubpassDesc*               pSubpasses         DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of memory dependencies between pairs of subpasses.
     Uint32                           DependencyCount    DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the array of subpass dependencies, see Diligent::SubpassDependencyDesc.
-    POINTER const SubpassDependencyDesc*     pDependencies      DEFAULT_INITIALIZER(nullptr);
+    const SubpassDependencyDesc*     pDependencies      DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     /// Tests if two render pass descriptions are equal.

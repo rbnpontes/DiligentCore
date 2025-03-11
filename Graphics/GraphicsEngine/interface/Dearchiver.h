@@ -42,17 +42,20 @@ DILIGENT_BEGIN_NAMESPACE(Diligent)
 /// Shader unpack parameters
 struct ShaderUnpackInfo
 {
-    POINTER struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Name of the shader to unpack.
-    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
+    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// An optional function to be called by the dearchiver to let the application modify
     /// the shader description.
-    POINTER void (*ModifyShaderDesc)(ShaderDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
+    void (*ModifyShaderDesc)(ShaderDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// A pointer to the user data to pass to the ModifyShaderDesc function.
-    POINTER void* pUserData DEFAULT_INITIALIZER(nullptr);
+    void* pUserData DEFAULT_INITIALIZER(nullptr);
 };
 typedef struct ShaderUnpackInfo ShaderUnpackInfo;
 
@@ -60,11 +63,13 @@ typedef struct ShaderUnpackInfo ShaderUnpackInfo;
 /// Resource signature unpack parameters
 struct ResourceSignatureUnpackInfo
 {
-    POINTER struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Name of the signature to unpack. If there is only
     /// one signature in the archive, the name may be null.
-    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
+    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Shader resource binding allocation granularity.
 
@@ -120,10 +125,12 @@ DEFINE_FLAG_ENUM_OPERATORS(PSO_UNPACK_FLAGS)
 struct PipelineStateUnpackInfo
 {
     struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Name of the PSO to unpack. If there is only
     /// one PSO in the archive, the name may be null.
     const Char* Name DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The type of the pipeline state to unpack, see Diligent::PIPELINE_TYPE.
     PIPELINE_TYPE PipelineType DEFAULT_INITIALIZER(PIPELINE_TYPE_INVALID);
@@ -148,7 +155,7 @@ struct PipelineStateUnpackInfo
 
     /// Optional PSO cache.
     IPipelineStateCache* pCache DEFAULT_INITIALIZER(nullptr);
-
+    WEB_DWORD_PADDING()
     /// An optional function to be called by the dearchiver to let the application modify
     /// the pipeline state create info.
     ///
@@ -170,6 +177,7 @@ struct PipelineStateUnpackInfo
     ///             ensure that the shader layout is compatible with the pipeline state, otherwise hard-to-debug
     ///             errors will occur.
     void (*ModifyPipelineStateCreateInfo)(PipelineStateCreateInfo REF PipelineCI, void* pUserData) DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// A pointer to the user data to pass to the ModifyPipelineStateCreateInfo function.
     void* pUserData DEFAULT_INITIALIZER(nullptr);
@@ -180,17 +188,20 @@ typedef struct PipelineStateUnpackInfo PipelineStateUnpackInfo;
 /// Render pass unpack parameters
 struct RenderPassUnpackInfo
 {
-    POINTER struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    struct IRenderDevice* pDevice DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Name of the render pass to unpack.
-    POINTER const Char* Name DEFAULT_INITIALIZER(nullptr);
+    const Char* Name DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// An optional function to be called by the dearchiver to let the application modify
     /// the render pass description.
-    POINTER void (*ModifyRenderPassDesc)(RenderPassDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
+    void (*ModifyRenderPassDesc)(RenderPassDesc REF Desc, void* pUserData) DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// A pointer to the user data to pass to the ModifyRenderPassDesc function.
-    POINTER void* pUserData DEFAULT_INITIALIZER(nullptr);
+    void* pUserData DEFAULT_INITIALIZER(nullptr);
 };
 typedef struct RenderPassUnpackInfo RenderPassUnpackInfo;
 

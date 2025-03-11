@@ -129,7 +129,8 @@ DEFINE_FLAG_ENUM_OPERATORS(SHADER_VARIABLE_FLAGS);
 struct ShaderResourceVariableDesc
 {
     /// Shader variable name
-    POINTER const Char*                   Name         DEFAULT_INITIALIZER(nullptr);
+    const Char*                   Name         DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Shader stages this resources variable applies to. If more than one shader stage is specified,
     /// the variable will be shared between these stages. Shader stages used by different variables
@@ -216,18 +217,22 @@ struct PipelineResourceLayoutDesc
 
     /// Number of elements in Variables array
     Uint32                              NumVariables         DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Array of shader resource variable descriptions
 
     /// There may be multiple variables with the same name that use different shader stages,
     /// but the stages must not overlap.
     const ShaderResourceVariableDesc*   Variables            DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Number of immutable samplers in ImmutableSamplers array
     Uint32                              NumImmutableSamplers DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Array of immutable sampler descriptions
-    POINTER const ImmutableSamplerDesc*         ImmutableSamplers    DEFAULT_INITIALIZER(nullptr);
+    const ImmutableSamplerDesc*         ImmutableSamplers    DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     /// Returns true if two resource layout descriptions are equal, and false otherwise.
@@ -295,6 +300,8 @@ struct GraphicsPipelineDesc
     /// Depth-stencil state description.
     DepthStencilStateDesc DepthStencilDesc;
 
+    WEB_DWORD_PADDING()
+
     /// Input layout, ignored in a mesh pipeline.
     InputLayoutDesc InputLayout;
 
@@ -316,7 +323,6 @@ struct GraphicsPipelineDesc
     /// Shading rate flags that specify which type of the shading rate will be used with this pipeline.
     PIPELINE_SHADING_RATE_FLAGS ShadingRateFlags DEFAULT_INITIALIZER(PIPELINE_SHADING_RATE_FLAG_NONE);
 
-    PADDING_FIELD()
     /// Render target formats.
     /// All formats must be TEX_FORMAT_UNKNOWN when pRenderPass is not null.
     TEXTURE_FORMAT RTVFormats[DILIGENT_MAX_RENDER_TARGETS] DEFAULT_INITIALIZER({});
@@ -331,12 +337,14 @@ struct GraphicsPipelineDesc
 
     /// Multisampling parameters.
     SampleDesc SmplDesc;
+    WEB_DWORD_PADDING()
 
     /// Pointer to the render pass object.
 
     /// When non-null render pass is specified, NumRenderTargets must be 0,
     /// and all RTV formats as well as DSV format must be TEX_FORMAT_UNKNOWN.
-    POINTER IRenderPass* pRenderPass     DEFAULT_INITIALIZER(nullptr);
+    IRenderPass* pRenderPass     DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Node mask.
     Uint32 NodeMask DEFAULT_INITIALIZER(0);
@@ -389,10 +397,12 @@ typedef struct GraphicsPipelineDesc GraphicsPipelineDesc;
 struct RayTracingGeneralShaderGroup
 {
     /// Unique group name.
-    POINTER const Char* Name    DEFAULT_INITIALIZER(nullptr);
+    const Char* Name    DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Shader type must be SHADER_TYPE_RAY_GEN, SHADER_TYPE_RAY_MISS or SHADER_TYPE_CALLABLE.
-    POINTER IShader*    pShader DEFAULT_INITIALIZER(nullptr);
+    IShader*    pShader DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     constexpr RayTracingGeneralShaderGroup() noexcept
@@ -420,15 +430,18 @@ typedef struct RayTracingGeneralShaderGroup RayTracingGeneralShaderGroup;
 struct RayTracingTriangleHitShaderGroup
 {
     /// Unique group name.
-    POINTER const Char* Name              DEFAULT_INITIALIZER(nullptr);
+    const Char* Name              DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Closest hit shader.
     /// The shader type must be SHADER_TYPE_RAY_CLOSEST_HIT.
-    POINTER IShader*    pClosestHitShader DEFAULT_INITIALIZER(nullptr);
+    IShader*    pClosestHitShader DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Any-hit shader. Can be null.
     /// The shader type must be SHADER_TYPE_RAY_ANY_HIT.
-    POINTER IShader*    pAnyHitShader     DEFAULT_INITIALIZER(nullptr); // can be null
+    IShader*    pAnyHitShader     DEFAULT_INITIALIZER(nullptr); // can be null
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     constexpr RayTracingTriangleHitShaderGroup() noexcept
@@ -460,19 +473,23 @@ typedef struct RayTracingTriangleHitShaderGroup RayTracingTriangleHitShaderGroup
 struct RayTracingProceduralHitShaderGroup
 {
     /// Unique group name.
-    POINTER const Char* Name                DEFAULT_INITIALIZER(nullptr);
+    const Char* Name                DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Intersection shader.
     /// The shader type must be SHADER_TYPE_RAY_INTERSECTION.
-    POINTER IShader*    pIntersectionShader DEFAULT_INITIALIZER(nullptr);
+    IShader*    pIntersectionShader DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Closest hit shader. Can be null.
     /// The shader type must be SHADER_TYPE_RAY_CLOSEST_HIT.
-    POINTER IShader*    pClosestHitShader   DEFAULT_INITIALIZER(nullptr);
+    IShader*    pClosestHitShader   DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Any-hit shader. Can be null.
     /// The shader type must be SHADER_TYPE_RAY_ANY_HIT.
-    POINTER IShader*    pAnyHitShader       DEFAULT_INITIALIZER(nullptr);
+    IShader*    pAnyHitShader       DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     constexpr RayTracingProceduralHitShaderGroup() noexcept
@@ -693,15 +710,17 @@ struct PipelineStateCreateInfo
     ///             When ppResourceSignatures is not null, PSODesc.ResourceLayout is ignored and
     ///             should be in it default state.
     IPipelineResourceSignature** ppResourceSignatures DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Optional pipeline state cache that is used to accelerate
     /// PSO creation. If PSODesc.Name is found in the cache, the cache
     /// data is used to create the PSO. Otherwise, the PSO
     /// is added to the cache.
-    POINTER IPipelineStateCache* pPSOCache DEFAULT_INITIALIZER(nullptr);
+    IPipelineStateCache* pPSOCache DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// For internal use only. Must always be null.
-    POINTER void* pInternalData DEFAULT_INITIALIZER(nullptr);
+    void* pInternalData DEFAULT_INITIALIZER(nullptr);
 
 #ifdef DILIGENT_PLATFORM_32
     Uint32 _Padding DEFAULT_INITIALIZER(0);
@@ -759,27 +778,35 @@ struct GraphicsPipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo)
 
     /// Graphics pipeline state description.
     GraphicsPipelineDesc GraphicsPipeline;
+    WEB_DWORD_PADDING()
 
     /// Vertex shader to be used with the pipeline.
-    POINTER IShader* pVS DEFAULT_INITIALIZER(nullptr);
+    IShader* pVS DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Pixel shader to be used with the pipeline.
-    POINTER IShader* pPS DEFAULT_INITIALIZER(nullptr);
+    IShader* pPS DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Domain shader to be used with the pipeline.
-    POINTER IShader* pDS DEFAULT_INITIALIZER(nullptr);
+    IShader* pDS DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Hull shader to be used with the pipeline.
-    POINTER IShader* pHS DEFAULT_INITIALIZER(nullptr);
+    IShader* pHS DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Geometry shader to be used with the pipeline.
-    POINTER IShader* pGS DEFAULT_INITIALIZER(nullptr);
+    IShader* pGS DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Amplification shader to be used with the pipeline.
-    POINTER IShader* pAS DEFAULT_INITIALIZER(nullptr);
+    IShader* pAS DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Mesh shader to be used with the pipeline.
-    POINTER IShader* pMS DEFAULT_INITIALIZER(nullptr);
+    IShader* pMS DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
 #if DILIGENT_CPP_INTERFACE
     constexpr GraphicsPipelineStateCreateInfo() noexcept 
@@ -820,7 +847,7 @@ typedef struct GraphicsPipelineStateCreateInfo GraphicsPipelineStateCreateInfo;
 struct ComputePipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo)
 
     /// Compute shader to be used with the pipeline
-    POINTER IShader* pCS DEFAULT_INITIALIZER(nullptr);
+    IShader* pCS DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     ComputePipelineStateCreateInfo() noexcept
@@ -853,31 +880,39 @@ struct RayTracingPipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo
 
     /// Ray tracing pipeline description.
     RayTracingPipelineDesc                    RayTracingPipeline;
+    WEB_DWORD_PADDING()
 
     /// A pointer to an array of GeneralShaderCount RayTracingGeneralShaderGroup structures that contain shader group description.
-    POINTER const RayTracingGeneralShaderGroup*       pGeneralShaders          DEFAULT_INITIALIZER(nullptr);
+    const RayTracingGeneralShaderGroup*       pGeneralShaders          DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of general shader groups.
     Uint32                                    GeneralShaderCount       DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// A pointer to an array of TriangleHitShaderCount RayTracingTriangleHitShaderGroup structures that contain shader group description.
     /// Can be null.
-    POINTER const RayTracingTriangleHitShaderGroup*   pTriangleHitShaders      DEFAULT_INITIALIZER(nullptr);
+    const RayTracingTriangleHitShaderGroup*   pTriangleHitShaders      DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of triangle hit shader groups.
     Uint32                                    TriangleHitShaderCount   DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// A pointer to an array of ProceduralHitShaderCount RayTracingProceduralHitShaderGroup structures that contain shader group description.
     /// Can be null.
-    POINTER const RayTracingProceduralHitShaderGroup* pProceduralHitShaders    DEFAULT_INITIALIZER(nullptr);
+    const RayTracingProceduralHitShaderGroup* pProceduralHitShaders    DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// The number of procedural shader groups.
     Uint32                                    ProceduralHitShaderCount DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Direct3D12 only: the name of the constant buffer that will be used by the local root signature.
     /// Ignored if RayTracingPipelineDesc::ShaderRecordSize is zero.
     /// In Vulkan backend in HLSL add [[vk::shader_record_ext]] attribute to the constant buffer, in GLSL add shaderRecord layout to buffer.
-    POINTER const Char*                               pShaderRecordName        DEFAULT_INITIALIZER(nullptr);
+    const Char*                               pShaderRecordName        DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Direct3D12 only: the maximum hit shader attribute size in bytes.
     /// If zero then maximum allowed size will be used.
@@ -950,8 +985,6 @@ struct TilePipelineDesc
     /// The number of samples in render targets.
     Uint8 SampleCount            DEFAULT_INITIALIZER(1);
 
-    PADDING_FIELD()
-
     /// Render target formats.
     TEXTURE_FORMAT RTVFormats[DILIGENT_MAX_RENDER_TARGETS] DEFAULT_INITIALIZER({});
 
@@ -982,9 +1015,10 @@ struct TilePipelineStateCreateInfo DILIGENT_DERIVE(PipelineStateCreateInfo)
 
     /// Tile pipeline description, see Diligent::TilePipelineDesc.
     TilePipelineDesc TilePipeline;
+    WEB_DWORD_PADDING()
 
     /// Tile shader to be used with the pipeline.
-    POINTER IShader* pTS DEFAULT_INITIALIZER(nullptr);
+    IShader* pTS DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     TilePipelineStateCreateInfo() noexcept

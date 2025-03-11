@@ -266,11 +266,13 @@ struct TextureSubResData
 {
     /// Pointer to the subresource data in CPU memory.
     /// If provided, pSrcBuffer must be null
-    POINTER const void* pData           DEFAULT_INITIALIZER(nullptr);
+    const void* pData           DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Pointer to the GPU buffer that contains subresource data.
     /// If provided, pData must be null
-    POINTER struct IBuffer* pSrcBuffer   DEFAULT_INITIALIZER(nullptr);
+    struct IBuffer* pSrcBuffer   DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// When updating data from the buffer (pSrcBuffer is not null),
     /// offset from the beginning of the buffer to the data start
@@ -322,13 +324,15 @@ struct TextureData
 {
     /// Pointer to the array of the TextureSubResData elements containing
     /// information about each subresource.
-    POINTER TextureSubResData* pSubResources    DEFAULT_INITIALIZER(nullptr);
+    TextureSubResData* pSubResources    DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
 
     /// Number of elements in pSubResources array.
     /// NumSubresources must exactly match the number
     /// of subresources in the texture. Otherwise an error
     /// occurs.
     Uint32             NumSubresources  DEFAULT_INITIALIZER(0);
+    WEB_DWORD_PADDING()
 
     /// Defines which device context will be used to initialize the texture.
 
@@ -337,7 +341,7 @@ struct TextureData
     /// must synchronize the access to the texture using fence.
     /// When null is provided, the first context enabled by ImmediateContextMask
     /// will be used.
-    POINTER struct IDeviceContext* pContext     DEFAULT_INITIALIZER(nullptr);
+    struct IDeviceContext* pContext     DEFAULT_INITIALIZER(nullptr);
 
 #if DILIGENT_CPP_INTERFACE
     constexpr TextureData() noexcept {}
@@ -356,6 +360,8 @@ typedef struct TextureData TextureData;
 struct MappedTextureSubresource
 {
     PVoid  pData       DEFAULT_INITIALIZER(nullptr);
+    WEB_DWORD_PADDING()
+    
     Uint64 Stride      DEFAULT_INITIALIZER(0);
     Uint64 DepthStride DEFAULT_INITIALIZER(0);
 
@@ -395,7 +401,6 @@ struct SparseTextureProperties
     /// or multiple memory blocks.
     Uint32 FirstMipInTail   DEFAULT_INITIALIZER(~0u);
 
-    PADDING_FIELD()
     /// Specifies the dimension of a tile packed into a single memory block.
     Uint32 TileSize[3]      DEFAULT_INITIALIZER({});
 
